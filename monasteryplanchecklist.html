@@ -165,10 +165,10 @@ const LANG = {
     na_label: "N/A", amore_label: "Amore", client_label: "Client",
   },
   my: {
-    title: "ကျောင်းတိုက် မင်္ဂလာဆောင် စာရင်း",
+    title: "မင်္ဂလာဦးဆွမ်းကျွေး လုပ်ငန်းစဉ်ဇယား",
     subtitle: "မြန်မာ ဗုဒ္ဓဘာသာ ထုံးတမ်းစဉ်လာ — ကြိမ်ဖန်များစွာ အသုံးပြုနိုင်သော ပုံစံ",
     meta_couple: "သတို့သား / သတို့သမီး", meta_date: "မင်္ဂလာဆောင် နေ့",
-    meta_monastery: "ကျောင်းတိုက်", meta_soon: "ဆွမ်းကပ်ချိန် (မင်္ဂလာဆွမ်း)",
+    meta_monastery: "ကျောင်းတိုက်", meta_soon: "မင်္ဂလာဆွမ်း ကျွေးချိန်",
     ph_monastery: "ကျောင်းတိုက်အမည်", ph_soon: "ဥပမာ မနက် ၁၀ နာရီ",
     progress: (c, t, na) => `${t} ခုအနက် ${c} ခု ပြီးပြီ${na ? ` · မလိုအပ် ${na} ခု` : ''}`,
     add_placeholder: "အကြောင်းအရာ ထပ်ထည့်ရန်...", add_btn: "+ ထည့်",
@@ -182,8 +182,6 @@ const LANG = {
   }
 };
 
-// Owner defaults exactly as configured in the PDF
-// o: 'amore' | 'client' | null
 const SECTIONS = {
   en: [
     { id: "monk_offering", icon: "☸", name: "Monk offering (Mingalar Soon)", items: [
@@ -193,10 +191,11 @@ const SECTIONS = {
       { t: "Monk-serving team assigned",                      o: "amore" },
       { t: "Sermon & blessing time confirmed with head monk", o: null },
     ]},
-    { id: "attire", icon: "◈", name: "Couple's attire", items: [
+    { id: "attire", icon: "◈", name: "Couple's attire & flowers", items: [
       { t: "Bride's outfit & jewelry ready",               o: "client" },
       { t: "Groom's outfit ready",                         o: "client" },
       { t: "Outfits steamed / pressed the day before",     o: "client" },
+      { t: "Bouquet & boutonniere",                        o: "amore" },
     ]},
     { id: "hair_makeup", icon: "◎", name: "Hair & makeup", items: [
       { t: "Hair artist booked & call time confirmed",        o: "amore" },
@@ -226,67 +225,68 @@ const SECTIONS = {
       { t: "Monk-offering serving team briefed",            o: "amore" },
     ]},
     { id: "photo_video", icon: "▣", name: "Photo & video", items: [
-      { t: "Photographer confirmed & call time set",                              o: "amore" },
-      { t: "Videographer confirmed & call time set",                              o: "amore" },
-      { t: "Key shots shared (Soon offering, garland exchange, family portraits)",o: "amore" },
+      { t: "Photographer confirmed & call time set",                               o: "amore" },
+      { t: "Videographer confirmed & call time set",                               o: "amore" },
+      { t: "Key shots shared (Soon offering, garland exchange, family portraits)", o: "amore" },
     ]},
     { id: "logistics", icon: "⚙", name: "Day-of logistics", items: [
-      { t: "Transport for couple arranged",                       o: "client" },
-      { t: "Arrival time at monastery confirmed",                 o: "client" },
-      { t: "Monastery rules reviewed (decor, noise, access)",     o: "client" },
-      { t: "Monastery premises left clean after event",           o: "client" },
+      { t: "Transport for couple arranged",                    o: "client" },
+      { t: "Arrival time at monastery confirmed",              o: "client" },
+      { t: "Monastery rules reviewed (decor, noise, access)",  o: "client" },
+      { t: "Monastery premises left clean after event",        o: "client" },
     ]},
   ],
   my: [
-    { id: "monk_offering", icon: "☸", name: "ဆွမ်းကပ်လှူဒါန်း (မင်္ဂလာဆွမ်း)", items: [
-      { t: "ကျောင်းတိုက်နှင့် သံဃာတော် အရေအတွက် အတည်ပြုပြီး",                   o: "client" },
-      { t: "ဆွမ်းစာရင်း ကြိုတင်စီစဉ်ပြီး",                                          o: null },
-      { t: "ဆွမ်းကပ်ဆောင်ပြားများ၊ ဆွမ်းခွက်များ ပြင်ဆင်ပြီး",                    o: null },
-      { t: "ဆွမ်းကပ်သူ အဖွဲ့ သတ်မှတ်ပြီး",                                          o: "amore" },
-      { t: "ကျောင်းထိုင်ဆရာတော်နှင့် တရားဟောချိန် နှင့် ကောင်းချီးပေးချိန် ညှိနှိုင်းပြီး", o: null },
+    { id: "monk_offering", icon: "☸", name: "မင်္ဂလာဆွမ်း ကျွေးလှူခြင်း", items: [
+      { t: "ကျောင်းတိုက်နှင့် သံဃာတော် အရေအတွက် အတည်ပြုပြီး",                              o: "client" },
+      { t: "မင်္ဂလာဆွမ်း စာရင်း Catering ဝန်ဆောင်မှုနှင့် ညှိနှိုင်းပြီး",                 o: null },
+      { t: "ဆွမ်းအုပ်နှင့် ဆွမ်းပြင်ပစ္စည်းများ ပြင်ဆင်ပြီး",                               o: null },
+      { t: "ဆွမ်းကပ်သူ အဖွဲ့ သတ်မှတ်ပြီး",                                                   o: "amore" },
+      { t: "ကျောင်းထိုင်ဆရာတော်နှင့် တရားဟောချိန်နှင့် ကောင်းချီးပေးချိန် ညှိနှိုင်းပြီး", o: null },
     ]},
-    { id: "attire", icon: "◈", name: "သတို့သား / သတို့သမီး အဝတ်အစား", items: [
-      { t: "သတို့သမီး ဝတ်စုံနှင့် လက်ဝတ်ရတနာ အဆင်သင့်",  o: "client" },
-      { t: "သတို့သား ဝတ်စုံ အဆင်သင့်",                     o: "client" },
-      { t: "မနက်ဖြန် ဝတ်ဆင်ရန် ရှိဆွဲ / မွတ်ပြီး",          o: "client" },
+    { id: "attire", icon: "◈", name: "သတို့သား/သမီး အဝတ်အစားနှင့် ပန်းများ", items: [
+      { t: "သတို့သမီး ဝတ်စုံနှင့် လက်ဝတ်ရတနာ အဆင်သင့်",    o: "client" },
+      { t: "သတို့သား ဝတ်စုံ အဆင်သင့်",                        o: "client" },
+      { t: "မနက်ဖြန် ဝတ်ဆင်ရန် ရှိဆွဲ / မွတ်ပြီး",            o: "client" },
+      { t: "မင်္ဂလာပန်းစည်းနှင့် ရင်ထိုးပန်း",                  o: "amore" },
     ]},
-    { id: "hair_makeup", icon: "◎", name: "ဆံပင် / မျက်နှာသစ်", items: [
+    { id: "hair_makeup", icon: "◎", name: "ဆံပင်နှင့် မိတ်ကပ်", items: [
       { t: "ဆံပင်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး",       o: "amore" },
-      { t: "မျက်နှာသစ်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး", o: "amore" },
+      { t: "မိတ်ကပ်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး",     o: "amore" },
       { t: "စမ်းသပ်ခြင်း ပြီးဆုံးပြီး",                                      o: "client" },
-      { t: "ဆေးကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း)",      o: "client" },
+      { t: "မိတ်ကပ်ကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း)",  o: "client" },
     ]},
     { id: "food", icon: "▭", name: "ဧည့်ခံ အစားအသောက်", items: [
-      { t: "ကြက်သားကောင်တာ အတည်ပြုပြီး (ထမင်း၊ ဟင်းများ)", o: "amore" },
-      { t: "ဧည့်သည်အရေအတွက် ကြက်သားကောင်တာသို့ ပေးပို့ပြီး", o: "amore" },
-      { t: "ဒယ်ကားများနှင့် ဝန်ဆောင်မှုအဖွဲ့ စီစဉ်ပြီး",      o: "amore" },
-      { t: "သောက်ရေနှင့် အဖျော်ယမကာ စီစဉ်ပြီး",               o: null },
-      { t: "ပန်းကန်၊ ခွက်၊ ဇွန်းများ အတည်ပြုပြီး",             o: "amore" },
-      { t: "ကျောင်းတိုက်နှင့် ချက်ပြုတ်စတင်ချိန် သဘောတူပြီး", o: null },
-      { t: "အမှိုက်အိတ်နှင့် ဧည့်ခံပြီးနောက် သန့်ရှင်းရေး တာဝန်ခွဲပြီး", o: "amore" },
+      { t: "Catering ဝန်ဆောင်မှု အတည်ပြုပြီး (ထမင်း၊ ဟင်းများ)",           o: "amore" },
+      { t: "ဧည့်သည်အရေအတွက် Catering ဝန်ဆောင်မှုသို့ ပေးပို့ပြီး",          o: "amore" },
+      { t: "ဒယ်ကားများနှင့် ဝန်ဆောင်မှုအဖွဲ့ စီစဉ်ပြီး",                     o: "amore" },
+      { t: "သောက်ရေနှင့် အဖျော်ယမကာ စီစဉ်ပြီး",                              o: null },
+      { t: "ပန်းကန်၊ ခွက်၊ ဇွန်းများ အတည်ပြုပြီး",                            o: "amore" },
+      { t: "ကျောင်းတိုက်နှင့် ချက်ပြုတ်စတင်ချိန် သဘောတူပြီး",               o: null },
+      { t: "အမှိုက်အိတ်နှင့် ဧည့်ခံပြီးနောက် သန့်ရှင်းရေး တာဝန်ခွဲပြီး",   o: "amore" },
     ]},
     { id: "guests", icon: "▤", name: "ဧည့်သည်များနှင့် လက်ဆောင်", items: [
-      { t: "ဧည့်သည်စာရင်း အတည်ပြုပြီး",                                      o: "client" },
-      { t: "ဖိတ်စာများ ပေးပို့ပြီး (ကျောင်းတိုက်၊ ရက်၊ ဆွမ်းကပ်ချိန်)",   o: "client" },
+      { t: "ဧည့်သည်စာရင်း အတည်ပြုပြီး",                                    o: "client" },
+      { t: "ဖိတ်စာ (ကျောင်းတိုက်၊ ရက်၊ မင်္ဂလာဆွမ်းချိန်) ပေးပို့ပြီး",   o: "client" },
       { t: "ဧည့်သည် လက်မှတ်ထိုးစာအုပ်နှင့် ဘောပင် ပြင်ဆင်ပြီး",          o: "amore" },
       { t: "လက်ဆောင် / စာအိတ် လက်ခံစားပွဲ စီစဉ်ပြီး",                      o: "amore" },
     ]},
     { id: "helpers", icon: "◁", name: "နေ့တွင် ကူညီသူများ", items: [
       { t: "ကျောင်းတိုက်ဝင်ပေါက်တွင် ကြိုဆိုသူ သတ်မှတ်ပြီး",  o: "client" },
       { t: "လက်ဆောင် / စာအိတ် လက်ခံသူ သတ်မှတ်ပြီး",           o: "client" },
-      { t: "ဧည့်ခံ ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး",               o: "amore" },
-      { t: "ဆွမ်းကပ်ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး",               o: "amore" },
+      { t: "ဧည့်ခံ ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး",              o: "amore" },
+      { t: "ဆွမ်းကပ်ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး",              o: "amore" },
     ]},
-    { id: "photo_video", icon: "▣", name: "ဓာတ်ပုံ / ဗီဒီယို", items: [
-      { t: "ဓာတ်ပုံဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",  o: "amore" },
-      { t: "ဗီဒီယိုဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",   o: "amore" },
+    { id: "photo_video", icon: "▣", name: "ဓာတ်ပုံနှင့် ဗီဒီယို", items: [
+      { t: "ဓာတ်ပုံဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",   o: "amore" },
+      { t: "ဗီဒီယိုဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",    o: "amore" },
       { t: "မှတ်တမ်းတင်ရမည့် အဓိကအခိုက်အတန့်များ မျှဝေပြီး",            o: "amore" },
     ]},
     { id: "logistics", icon: "⚙", name: "နေ့ဆိုင်ရာ စီစဉ်မှုများ", items: [
-      { t: "သတို့တွဲ သယ်ယူပို့ဆောင်ရေး စီစဉ်ပြီး",                              o: "client" },
-      { t: "ကျောင်းတိုက် ရောက်ရမည့်အချိန် အတည်ပြုပြီး",                         o: "client" },
-      { t: "ကျောင်းတိုက် စည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ ဆူညံမှု)",      o: "client" },
-      { t: "အခမ်းအနားပြီးနောက် ကျောင်းတိုက် သန့်ရှင်းရေး ပြုလုပ်ပြီး",          o: "client" },
+      { t: "သတို့တွဲ သယ်ယူပို့ဆောင်ရေး စီစဉ်ပြီး",                             o: "client" },
+      { t: "ကျောင်းတိုက် ရောက်ရမည့်အချိန် အတည်ပြုပြီး",                        o: "client" },
+      { t: "ကျောင်းတိုက် စည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ ဆူညံမှု)",     o: "client" },
+      { t: "အခမ်းအနားပြီးနောက် ကျောင်းတိုက် သန့်ရှင်းရေး ပြုလုပ်ပြီး",        o: "client" },
     ]},
   ]
 };
@@ -308,16 +308,13 @@ SECTIONS.en.forEach(s => {
   customItems[s.id] = [];
 });
 
-function allItems(sec) {
-  return [...sec.items, ...customItems[sec.id]];
-}
+function allItems(sec) { return [...sec.items, ...customItems[sec.id]]; }
 
 function setFilter(type, val) {
   if (type === 'status') {
     statusFilter = val;
     ['all','pending','done','na'].forEach(x => {
-      const el = document.getElementById('filter-' + x);
-      el.className = 'filter-btn' + (x === val ? ' active' : '');
+      document.getElementById('filter-' + x).className = 'filter-btn' + (x === val ? ' active' : '');
     });
   } else {
     ownerFilter = val;
@@ -332,14 +329,12 @@ function setFilter(type, val) {
 }
 
 function itemVisible(secId, i) {
-  const isChecked = state[secId][i];
-  const isNA = naState[secId][i];
-  const owner = ownerState[secId][i];
-  let statusOk = statusFilter === 'all' ||
+  const isChecked = state[secId][i], isNA = naState[secId][i], owner = ownerState[secId][i];
+  const statusOk = statusFilter === 'all' ||
     (statusFilter === 'pending' && !isChecked && !isNA) ||
-    (statusFilter === 'done'    && isChecked && !isNA) ||
+    (statusFilter === 'done'    && isChecked  && !isNA) ||
     (statusFilter === 'na'      && isNA);
-  let ownerOk = ownerFilter === 'all' ||
+  const ownerOk = ownerFilter === 'all' ||
     (ownerFilter === 'amore'  && owner === 'amore') ||
     (ownerFilter === 'client' && owner === 'client') ||
     (ownerFilter === 'unset'  && !owner);
@@ -349,11 +344,9 @@ function itemVisible(secId, i) {
 function applyFilter() {
   document.querySelectorAll('.section').forEach(secEl => {
     const secId = secEl.getAttribute('data-id');
-    const rows = secEl.querySelectorAll('.item-row[data-idx]');
     let visible = 0;
-    rows.forEach(row => {
-      const i = parseInt(row.getAttribute('data-idx'));
-      const show = itemVisible(secId, i);
+    secEl.querySelectorAll('.item-row[data-idx]').forEach(row => {
+      const show = itemVisible(secId, parseInt(row.getAttribute('data-idx')));
       row.classList.toggle('hidden', !show);
       if (show) visible++;
     });
@@ -368,8 +361,7 @@ function updateProgress() {
   SECTIONS.en.forEach(s => {
     state[s.id].forEach((v, i) => {
       if (naState[s.id][i]) { na++; return; }
-      total++;
-      if (v) checked++;
+      total++; if (v) checked++;
     });
   });
   const pct = total ? Math.round(checked / total * 100) : 0;
@@ -382,8 +374,7 @@ function cycleOwner(secId, i) {
   ownerState[secId][i] = cur === null ? 'amore' : cur === 'amore' ? 'client' : null;
   const btn = document.querySelector(`.owner-btn[data-sec="${secId}"][data-idx="${i}"]`);
   if (btn) {
-    const L = LANG[currentLang];
-    const o = ownerState[secId][i];
+    const o = ownerState[secId][i], L = LANG[currentLang];
     btn.className = 'owner-btn' + (o === 'amore' ? ' amore' : o === 'client' ? ' client' : '');
     btn.textContent = o === 'amore' ? L.amore_label : o === 'client' ? L.client_label : '—';
   }
@@ -421,15 +412,12 @@ function renderSections() {
 
     items.forEach((item, i) => {
       const label = typeof item === 'string' ? item : item.t;
+      const isChecked = state[sec.id][i], isNA = naState[sec.id][i], owner = ownerState[sec.id][i];
       const row = document.createElement("div");
       row.className = "item-row";
       row.setAttribute('data-idx', i);
       const cbId = `cb-${sec.id}-${i}`;
-      const isChecked = state[sec.id][i];
-      const isNA = naState[sec.id][i];
-      const owner = ownerState[sec.id][i];
-
-      let labelClass = "item-label" + (isNA ? " na" : isChecked ? " checked" : "");
+      const labelClass = "item-label" + (isNA ? " na" : isChecked ? " checked" : "");
       const ownerClass = 'owner-btn' + (owner === 'amore' ? ' amore' : owner === 'client' ? ' client' : '');
       const ownerText = owner === 'amore' ? L.amore_label : owner === 'client' ? L.client_label : '—';
 
@@ -437,7 +425,7 @@ function renderSections() {
         <input type="checkbox" id="${cbId}" ${isChecked && !isNA ? "checked" : ""} ${isNA ? "disabled" : ""} />
         <label class="${labelClass}" for="${cbId}">${label}</label>
         <button class="${ownerClass}" data-sec="${sec.id}" data-idx="${i}">${ownerText}</button>
-        <button class="na-btn${isNA ? ' active' : ''}" data-na-sec="${sec.id}" data-na-idx="${i}">${L.na_label}</button>
+        <button class="na-btn${isNA ? ' active' : ''}">${L.na_label}</button>
       `;
 
       row.querySelector("input").onchange = function() {
@@ -448,52 +436,33 @@ function renderSections() {
         const cc = state[sec.id].filter((v, j) => v && !naState[sec.id][j]).length;
         const el = document.getElementById('count-' + sec.id);
         if (el) el.innerHTML = `${cc}/${items.length - nc}${nc ? ` <span style="color:#C8975A;font-size:11px">· ${nc} N/A</span>` : ''}`;
-        updateProgress();
-        applyFilter();
+        updateProgress(); applyFilter();
       };
-
-      row.querySelector('.owner-btn').onclick = function(e) {
-        e.stopPropagation();
-        cycleOwner(sec.id, i);
-      };
-
+      row.querySelector('.owner-btn').onclick = e => { e.stopPropagation(); cycleOwner(sec.id, i); };
       row.querySelector('.na-btn').onclick = function() {
         naState[sec.id][i] = !naState[sec.id][i];
         if (naState[sec.id][i]) state[sec.id][i] = false;
-        renderSections();
-        updateProgress();
+        renderSections(); updateProgress();
       };
-
       body.appendChild(row);
     });
 
     const addRow = document.createElement("div");
     addRow.className = "add-item";
     addRow.innerHTML = `<input class="add-input" placeholder="${L.add_placeholder}" /><button class="add-btn-el">${L.add_btn}</button>`;
-    const inp = addRow.querySelector("input");
-    const btn = addRow.querySelector("button");
+    const inp = addRow.querySelector("input"), btn = addRow.querySelector("button");
     const doAdd = () => {
-      const v = inp.value.trim();
-      if (!v) return;
+      const v = inp.value.trim(); if (!v) return;
       customItems[sec.id].push({ t: v, o: null });
-      state[sec.id].push(false);
-      naState[sec.id].push(false);
-      ownerState[sec.id].push(null);
-      inp.value = "";
-      renderSections();
-      updateProgress();
+      state[sec.id].push(false); naState[sec.id].push(false); ownerState[sec.id].push(null);
+      inp.value = ""; renderSections(); updateProgress();
     };
-    btn.onclick = doAdd;
-    inp.onkeydown = e => { if (e.key === "Enter") doAdd(); };
+    btn.onclick = doAdd; inp.onkeydown = e => { if (e.key === "Enter") doAdd(); };
     body.appendChild(addRow);
-
-    div.appendChild(header);
-    div.appendChild(body);
-    container.appendChild(div);
+    div.appendChild(header); div.appendChild(body); container.appendChild(div);
   });
 
-  updateProgress();
-  applyFilter();
+  updateProgress(); applyFilter();
 }
 
 function setLang(lang) {
@@ -505,24 +474,15 @@ function setLang(lang) {
   document.getElementById('subtitle-text').textContent = L.subtitle;
   document.getElementById('label-status').textContent = L.label_status;
   document.getElementById('label-owner').textContent = L.label_owner;
-  document.querySelectorAll('[data-key]').forEach(el => {
-    const k = el.getAttribute('data-key');
-    if (L[k] !== undefined) el.textContent = L[k];
-  });
-  document.querySelectorAll('[data-key-ph]').forEach(el => {
-    const k = el.getAttribute('data-key-ph');
-    if (L[k]) el.placeholder = L[k];
-  });
+  document.querySelectorAll('[data-key]').forEach(el => { const k = el.getAttribute('data-key'); if (L[k] !== undefined) el.textContent = L[k]; });
+  document.querySelectorAll('[data-key-ph]').forEach(el => { const k = el.getAttribute('data-key-ph'); if (L[k]) el.placeholder = L[k]; });
   renderSections();
 }
 
-function expandAll() { SECTIONS.en.forEach(s => collapsed[s.id] = false); renderSections(); }
-function collapseAll() { SECTIONS.en.forEach(s => collapsed[s.id] = true); renderSections(); }
+function expandAll()  { SECTIONS.en.forEach(s => collapsed[s.id] = false); renderSections(); }
+function collapseAll(){ SECTIONS.en.forEach(s => collapsed[s.id] = true);  renderSections(); }
 function uncheckAll() {
-  SECTIONS.en.forEach(s => {
-    state[s.id] = state[s.id].map(() => false);
-    naState[s.id] = naState[s.id].map(() => false);
-  });
+  SECTIONS.en.forEach(s => { state[s.id] = state[s.id].map(() => false); naState[s.id] = naState[s.id].map(() => false); });
   renderSections();
 }
 
