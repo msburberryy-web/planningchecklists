@@ -27,11 +27,15 @@
   .progress-fill { height: 100%; border-radius: 99px; background: #B07D3A; transition: width 0.3s ease; }
   .progress-text { font-size: 12px; color: #999; }
 
-  /* View filter bar */
-  .filter-bar { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .filter-btn { font-size: 12px; padding: 6px 13px; border: 1px solid #ddd; border-radius: 20px; background: #fff; color: #666; cursor: pointer; transition: all 0.15s; }
+  /* Filter rows */
+  .filter-row { display: flex; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; align-items: center; }
+  .filter-row-label { font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 0.05em; min-width: 44px; }
+  .filter-btn { font-size: 12px; padding: 5px 13px; border: 1px solid #ddd; border-radius: 20px; background: #fff; color: #666; cursor: pointer; transition: all 0.15s; }
   .filter-btn:hover { background: #f5f3f0; }
   .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .filter-btn.active-amore { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+  .filter-btn.active-client { background: #5B8DD9; color: #fff; border-color: #5B8DD9; }
+  .filter-divider { height: 1px; background: #ede9e3; margin-bottom: 1rem; }
 
   .section { margin-bottom: 8px; border: 1px solid #e8e5e0; border-radius: 12px; overflow: hidden; background: #fff; }
   .section.empty-section { display: none; }
@@ -46,11 +50,21 @@
   .item-row:last-of-type { border-bottom: none; }
   .item-row.hidden { display: none; }
 
-  /* Checkbox */
   .item-row input[type=checkbox] { width: 14px; height: 14px; accent-color: #B07D3A; cursor: pointer; flex-shrink: 0; margin-top: 3px; }
   .item-label { font-size: 13px; color: #1a1a1a; flex: 1; line-height: 1.6; cursor: pointer; }
   .item-label.checked { color: #c0bbb4; text-decoration: line-through; }
   .item-label.na { color: #c8c0b8; text-decoration: line-through; font-style: italic; }
+
+  /* Owner tag pill */
+  .owner-btn {
+    font-size: 10px; font-weight: 600; padding: 2px 8px;
+    border-radius: 10px; border: 1px solid #ddd;
+    cursor: pointer; flex-shrink: 0; margin-top: 3px;
+    transition: all 0.15s; white-space: nowrap; background: #fff; color: #bbb;
+    letter-spacing: 0.02em;
+  }
+  .owner-btn.amore { background: #e8f7f2; border-color: #1D9E75; color: #0F6E56; }
+  .owner-btn.client { background: #e8f0fc; border-color: #5B8DD9; color: #2c5fb3; }
 
   /* N/A button */
   .na-btn { font-size: 10px; padding: 2px 7px; border-radius: 10px; border: 1px solid #ddd; background: #fff; color: #aaa; cursor: pointer; flex-shrink: 0; margin-top: 3px; white-space: nowrap; transition: all 0.15s; }
@@ -60,8 +74,8 @@
   .add-item { display: flex; gap: 6px; padding: 7px 14px; border-top: 1px solid #f0ede8; }
   .add-input { flex: 1; font-size: 12px; padding: 5px 9px; border: 1px solid #ddd; border-radius: 7px; background: #fafafa; color: #1a1a1a; outline: none; }
   .add-input:focus { border-color: #B07D3A; background: #fff; }
-  .add-btn { font-size: 12px; padding: 5px 10px; border: 1px solid #ddd; border-radius: 7px; background: #fff; color: #666; cursor: pointer; }
-  .add-btn:hover { background: #f0f0f0; }
+  .add-btn-el { font-size: 12px; padding: 5px 10px; border: 1px solid #ddd; border-radius: 7px; background: #fff; color: #666; cursor: pointer; }
+  .add-btn-el:hover { background: #f0f0f0; }
 
   .footer-actions { display: flex; gap: 8px; margin-top: 1.25rem; flex-wrap: wrap; }
   .footer-btn { font-size: 12px; padding: 7px 13px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #555; cursor: pointer; }
@@ -69,13 +83,13 @@
   .footer-btn.primary { background: #B07D3A; color: #fff; border-color: #B07D3A; }
   .footer-btn.primary:hover { background: #8C6230; }
 
-  /* Print styles — respects current filter view */
   @media print {
     body { background: #fff; padding: 1rem; }
-    .footer-actions, .add-item, .lang-toggle, .filter-bar, .na-btn { display: none !important; }
+    .footer-actions, .add-item, .lang-toggle, .filter-row, .filter-divider, .na-btn { display: none !important; }
     .section-body.collapsed { display: block !important; }
     .item-row.hidden { display: none !important; }
     .section.empty-section { display: none !important; }
+    .owner-btn { border: 1px solid #ddd !important; }
   }
 </style>
 </head>
@@ -117,11 +131,21 @@
     <div class="progress-text" id="progress-text"></div>
   </div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" id="filter-all" onclick="setFilter('all')" data-key="filter_all">All</button>
-    <button class="filter-btn" id="filter-pending" onclick="setFilter('pending')" data-key="filter_pending">Pending</button>
-    <button class="filter-btn" id="filter-done" onclick="setFilter('done')" data-key="filter_done">Done</button>
-    <button class="filter-btn" id="filter-na" onclick="setFilter('na')" data-key="filter_na">N/A</button>
+  <!-- Status filter -->
+  <div class="filter-row">
+    <span class="filter-row-label" id="label-status">Status</span>
+    <button class="filter-btn active" id="filter-all" onclick="setFilter('status','all')" data-key="filter_all">All</button>
+    <button class="filter-btn" id="filter-pending" onclick="setFilter('status','pending')" data-key="filter_pending">Pending</button>
+    <button class="filter-btn" id="filter-done" onclick="setFilter('status','done')" data-key="filter_done">Done</button>
+    <button class="filter-btn" id="filter-na" onclick="setFilter('status','na')" data-key="filter_na">N/A</button>
+  </div>
+  <!-- Owner filter -->
+  <div class="filter-row" style="margin-bottom:1rem;">
+    <span class="filter-row-label" id="label-owner">Owner</span>
+    <button class="filter-btn active" id="filter-owner-all" onclick="setFilter('owner','all')" data-key="filter_owner_all">All</button>
+    <button class="filter-btn" id="filter-owner-amore" onclick="setFilter('owner','amore')" data-key="filter_owner_amore">Amore</button>
+    <button class="filter-btn" id="filter-owner-client" onclick="setFilter('owner','client')" data-key="filter_owner_client">Client</button>
+    <button class="filter-btn" id="filter-owner-unset" onclick="setFilter('owner','unset')" data-key="filter_owner_unset">Unassigned</button>
   </div>
 
   <div id="sections"></div>
@@ -139,166 +163,190 @@ const LANG = {
   en: {
     title: "Monastery Wedding Checklist",
     subtitle: "Myanmar Buddhist tradition — reusable master template",
-    meta_couple: "Couple",
-    meta_date: "Wedding Date",
-    meta_monastery: "Monastery",
-    meta_soon: "Alms time (Mingalar Soon)",
-    ph_monastery: "Monastery name",
-    ph_soon: "e.g. 10:00 AM",
+    meta_couple: "Couple", meta_date: "Wedding Date",
+    meta_monastery: "Monastery", meta_soon: "Alms time (Mingalar Soon)",
+    ph_monastery: "Monastery name", ph_soon: "e.g. 10:00 AM",
     progress: (c, t, na) => `${c} of ${t} items done${na ? ` · ${na} N/A` : ''}`,
-    add_placeholder: "Add custom item...",
-    add_btn: "+ Add",
-    btn_expand: "Expand all",
-    btn_collapse: "Collapse all",
-    btn_reset: "Reset all",
-    btn_print: "Print / Save PDF",
-    filter_all: "All",
-    filter_pending: "Pending",
-    filter_done: "Done",
-    filter_na: "N/A",
-    na_label: "N/A",
+    add_placeholder: "Add custom item...", add_btn: "+ Add",
+    btn_expand: "Expand all", btn_collapse: "Collapse all",
+    btn_reset: "Reset all", btn_print: "Print / Save PDF",
+    filter_all: "All", filter_pending: "Pending", filter_done: "Done", filter_na: "N/A",
+    filter_owner_all: "All", filter_owner_amore: "Amore",
+    filter_owner_client: "Client", filter_owner_unset: "Unassigned",
+    label_status: "Status", label_owner: "Owner",
+    na_label: "N/A", amore_label: "Amore", client_label: "Client",
   },
   my: {
     title: "ကျောင်းတိုက် မင်္ဂလာဆောင် စာရင်း",
     subtitle: "မြန်မာ ဗုဒ္ဓဘာသာ ထုံးတမ်းစဉ်လာ — ကြိမ်ဖန်များစွာ အသုံးပြုနိုင်သော ပုံစံ",
-    meta_couple: "သတို့သား / သတို့သမီး",
-    meta_date: "မင်္ဂလာဆောင် နေ့",
-    meta_monastery: "ကျောင်းတိုက်",
-    meta_soon: "ဆွမ်းကပ်ချိန် (မင်္ဂလာဆွမ်း)",
-    ph_monastery: "ကျောင်းတိုက်အမည်",
-    ph_soon: "ဥပမာ မနက် ၁၀ နာရီ",
-    progress: (c, t, na) => `စုစုပေါင်း ${t} ခုအနက် ${c} ခု ပြီးစီးသည်${na ? ` · မလိုအပ် ${na} ခု` : ''}`,
-    add_placeholder: "အကြောင်းအရာ ထပ်ထည့်ရန်...",
-    add_btn: "+ ထည့်",
-    btn_expand: "အားလုံး ဖွင့်",
-    btn_collapse: "အားလုံး ပိတ်",
-    btn_reset: "အားလုံး ပြန်သိမ်း",
-    btn_print: "ပရင့်ထုတ် / PDF သိမ်း",
-    filter_all: "အားလုံး",
-    filter_pending: "မပြီးသေး",
-    filter_done: "ပြီးပြီ",
-    filter_na: "မလိုအပ်",
-    na_label: "မလိုအပ်",
+    meta_couple: "သတို့သား / သတို့သမီး", meta_date: "မင်္ဂလာဆောင် နေ့",
+    meta_monastery: "ကျောင်းတိုက်", meta_soon: "ဆွမ်းကပ်ချိန် (မင်္ဂလာဆွမ်း)",
+    ph_monastery: "ကျောင်းတိုက်အမည်", ph_soon: "ဥပမာ မနက် ၁၀ နာရီ",
+    progress: (c, t, na) => `${t} ခုအနက် ${c} ခု ပြီးပြီ${na ? ` · မလိုအပ် ${na} ခု` : ''}`,
+    add_placeholder: "အကြောင်းအရာ ထပ်ထည့်ရန်...", add_btn: "+ ထည့်",
+    btn_expand: "အားလုံး ဖွင့်", btn_collapse: "အားလုံး ပိတ်",
+    btn_reset: "အားလုံး ပြန်သိမ်း", btn_print: "ပရင့်ထုတ် / PDF သိမ်း",
+    filter_all: "အားလုံး", filter_pending: "မပြီးသေး", filter_done: "ပြီးပြီ", filter_na: "မလိုအပ်",
+    filter_owner_all: "အားလုံး", filter_owner_amore: "အမိုရေ",
+    filter_owner_client: "ဧည့်သည်", filter_owner_unset: "မသတ်မှတ်ရသေး",
+    label_status: "အခြေအနေ", label_owner: "တာဝန်ခံ",
+    na_label: "မလိုအပ်", amore_label: "အမိုရေ", client_label: "ဧည့်သည်",
   }
 };
 
+// owner defaults: 'amore' | 'client' | null
 const SECTIONS = {
   en: [
-    { id: "monk_offering", icon: "☸", name: "Monk offering (Mingalar Soon)", items: [
-      "Number of monks confirmed with monastery",
-      "Soon menu planned with caterer",
-      "Offering trays, bowls & covers prepared",
-      "Monk-serving team assigned",
-      "Sermon & blessing timing confirmed with head monk"
-    ]},
-    { id: "attire", icon: "◈", name: "Couple's attire", items: [
-      "Bride's outfit & jewelry ready",
-      "Groom's outfit ready",
-      "Outfits steamed / pressed the day before"
-    ]},
-    { id: "hair_makeup", icon: "◎", name: "Hair & makeup", items: [
-      "Hair artist booked & call time confirmed",
-      "Makeup artist booked & call time confirmed",
-      "Trial session completed",
-      "Touch-up kit packed (lipstick, powder, pins)"
-    ]},
-    { id: "food", icon: "▭", name: "Food & catering", items: [
-      "Caterer confirmed (rice, curries, side dishes)",
-      "Guest headcount submitted to caterer",
-      "Serving tables & serving team arranged",
-      "Water & drinks arranged",
-      "Plates, cups & cutlery confirmed",
-      "Catering setup time agreed with monastery",
-      "Garbage bags & post-meal cleanup assigned"
-    ]},
-    { id: "guests", icon: "▤", name: "Guests & gifts", items: [
-      "Guest list finalised",
-      "Invitations sent (monastery, date, alms time)",
-      "Guest sign book & pens set up",
-      "Gift / envelope collection table arranged"
-    ]},
-    { id: "helpers", icon: "◁", name: "Helpers on the day", items: [
-      "Greeter assigned at monastery entrance",
-      "Gift & envelope collection person assigned",
-      "Food serving team briefed",
-      "Monk-offering serving team briefed"
-    ]},
-    { id: "photo_video", icon: "▣", name: "Photo & video", items: [
-      "Photographer confirmed & call time set",
-      "Videographer confirmed & call time set",
-      "Key shots shared (Soon offering, garland exchange, family portraits)"
-    ]},
-    { id: "logistics", icon: "⚙", name: "Day-of logistics", items: [
-      "Transport for couple arranged",
-      "Arrival time at monastery confirmed",
-      "Monastery rules reviewed (decor, noise, access)",
-      "Monastery premises left clean after event"
-    ]}
+    { id: "monk_offering", icon: "☸", name: "Monk offering (Mingalar Soon)",
+      items: [
+        { t: "Number of monks confirmed with monastery", o: "amore" },
+        { t: "Soon menu planned with caterer", o: "amore" },
+        { t: "Offering trays, bowls & covers prepared", o: "amore" },
+        { t: "Monk-serving team assigned", o: "amore" },
+        { t: "Sermon & blessing timing confirmed with head monk", o: "amore" },
+      ]
+    },
+    { id: "attire", icon: "◈", name: "Couple's attire",
+      items: [
+        { t: "Bride's outfit & jewelry ready", o: "client" },
+        { t: "Groom's outfit ready", o: "client" },
+        { t: "Outfits steamed / pressed the day before", o: "client" },
+      ]
+    },
+    { id: "hair_makeup", icon: "◎", name: "Hair & makeup",
+      items: [
+        { t: "Hair artist booked & call time confirmed", o: "amore" },
+        { t: "Makeup artist booked & call time confirmed", o: "amore" },
+        { t: "Trial session completed", o: "client" },
+        { t: "Touch-up kit packed (lipstick, powder, pins)", o: "client" },
+      ]
+    },
+    { id: "food", icon: "▭", name: "Food & catering",
+      items: [
+        { t: "Caterer confirmed (rice, curries, side dishes)", o: "amore" },
+        { t: "Guest headcount submitted to caterer", o: "client" },
+        { t: "Serving tables & serving team arranged", o: "amore" },
+        { t: "Water & drinks arranged", o: "amore" },
+        { t: "Plates, cups & cutlery confirmed", o: "amore" },
+        { t: "Catering setup time agreed with monastery", o: "amore" },
+        { t: "Garbage bags & post-meal cleanup assigned", o: "amore" },
+      ]
+    },
+    { id: "guests", icon: "▤", name: "Guests & gifts",
+      items: [
+        { t: "Guest list finalised", o: "client" },
+        { t: "Invitations sent (monastery, date, alms time)", o: "client" },
+        { t: "Guest sign book & pens set up", o: "amore" },
+        { t: "Gift / envelope collection table arranged", o: "amore" },
+      ]
+    },
+    { id: "helpers", icon: "◁", name: "Helpers on the day",
+      items: [
+        { t: "Greeter assigned at monastery entrance", o: "amore" },
+        { t: "Gift & envelope collection person assigned", o: "amore" },
+        { t: "Food serving team briefed", o: "amore" },
+        { t: "Monk-offering serving team briefed", o: "amore" },
+      ]
+    },
+    { id: "photo_video", icon: "▣", name: "Photo & video",
+      items: [
+        { t: "Photographer confirmed & call time set", o: "amore" },
+        { t: "Videographer confirmed & call time set", o: "amore" },
+        { t: "Key shots shared (Soon offering, garland exchange, family portraits)", o: "amore" },
+      ]
+    },
+    { id: "logistics", icon: "⚙", name: "Day-of logistics",
+      items: [
+        { t: "Transport for couple arranged", o: "client" },
+        { t: "Arrival time at monastery confirmed", o: "client" },
+        { t: "Monastery rules reviewed (decor, noise, access)", o: "amore" },
+        { t: "Monastery premises left clean after event", o: "amore" },
+      ]
+    },
   ],
   my: [
-    { id: "monk_offering", icon: "☸", name: "ဆွမ်းကပ်လှူဒါန်း (မင်္ဂလာဆွမ်း)", items: [
-      "ကျောင်းတိုက်နှင့် သံဃာတော် အရေအတွက် အတည်ပြုပြီး",
-      "ဆွမ်းဖိုးစာရင်း ကြိုတင်စီစဉ်ပြီး",
-      "ဆွမ်းကပ်ဆောင်ပြားများ၊ ဆွမ်းခွက်များ ပြင်ဆင်ပြီး",
-      "ဆွမ်းကပ်သူ အဖွဲ့ သတ်မှတ်ပြီး",
-      "တရားဟောချိန်နှင့် ကျောင်းထိုင်ဆရာတော်နှင့် ချိန်းဆိုပြီး"
-    ]},
-    { id: "attire", icon: "◈", name: "သတို့သား / သတို့သမီး အဝတ်အစား", items: [
-      "သတို့သမီး ဝတ်စုံနှင့် လက်ဝတ်ရတနာ အဆင်သင့်",
-      "သတို့သား ဝတ်စုံ အဆင်သင့်",
-      "မနက်ဖြန် ဝတ်ဆင်ရန် ရှိဆွဲ / မွတ်ပြီး"
-    ]},
-    { id: "hair_makeup", icon: "◎", name: "ဆံပင် / မျက်နှာသစ်", items: [
-      "ဆံပင်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး",
-      "မျက်နှာသစ်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး",
-      "စမ်းသပ်ခြင်း ပြီးဆုံးပြီး",
-      "ဆေးကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း)"
-    ]},
-    { id: "food", icon: "▭", name: "ဧည့်ခံ အစားအသောက်", items: [
-      "ကြက်သားကောင်တာ အတည်ပြုပြီး (ထမင်း၊ ဟင်းများ)",
-      "ဧည့်သည်အရေအတွက် ကြက်သားကောင်တာသို့ ပေးပို့ပြီး",
-      "ဒယ်ကားများနှင့် ဝန်ဆောင်မှုအဖွဲ့ စီစဉ်ပြီး",
-      "သောက်ရေနှင့် အဖျော်ယမကာ စီစဉ်ပြီး",
-      "ပန်းကန်၊ ခွက်၊ ဇွန်းများ အတည်ပြုပြီး",
-      "ကျောင်းတိုက်နှင့် ချက်ပြုတ်စတင်ချိန် သဘောတူပြီး",
-      "အမှိုက်အိတ်နှင့် ဧည့်ခံပြီးနောက် သန့်ရှင်းရေး တာဝန်ခွဲပြီး"
-    ]},
-    { id: "guests", icon: "▤", name: "ဧည့်သည်များနှင့် လက်ဆောင်", items: [
-      "ဧည့်သည်စာရင်း အတည်ပြုပြီး",
-      "ဖိတ်စာများ ပေးပို့ပြီး (ကျောင်းတိုက်၊ ရက်၊ ဆွမ်းကပ်ချိန်)",
-      "ဧည့်သည် လက်မှတ်ထိုးစာအုပ်နှင့် ဘောပင် ပြင်ဆင်ပြီး",
-      "လက်ဆောင် / စာအိတ် လက်ခံစားပွဲ စီစဉ်ပြီး"
-    ]},
-    { id: "helpers", icon: "◁", name: "နေ့တွင် ကူညီသူများ", items: [
-      "ကျောင်းတိုက်ဝင်ပေါက်တွင် ကြိုဆိုသူ သတ်မှတ်ပြီး",
-      "လက်ဆောင် / စာအိတ် လက်ခံသူ သတ်မှတ်ပြီး",
-      "ဧည့်ခံ ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး",
-      "ဆွမ်းကပ်ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး"
-    ]},
-    { id: "photo_video", icon: "▣", name: "ဓာတ်ပုံ / ဗီဒီယို", items: [
-      "ဓာတ်ပုံဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",
-      "ဗီဒီယိုဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",
-      "မှတ်တမ်းတင်ရမည့် အဓိကအခိုက်အတန့်များ မျှဝေပြီး"
-    ]},
-    { id: "logistics", icon: "⚙", name: "နေ့ဆိုင်ရာ စီစဉ်မှုများ", items: [
-      "သတို့တွဲ သယ်ယူပို့ဆောင်ရေး စီစဉ်ပြီး",
-      "ကျောင်းတိုက် ရောက်ရမည့်အချိန် အတည်ပြုပြီး",
-      "ကျောင်းတိုက် စည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ ဆူညံမှု)",
-      "အခမ်းအနားပြီးနောက် ကျောင်းတိုက် သန့်ရှင်းရေး ပြုလုပ်ပြီး"
-    ]}
+    { id: "monk_offering", icon: "☸", name: "ဆွမ်းကပ်လှူဒါန်း (မင်္ဂလာဆွမ်း)",
+      items: [
+        { t: "ကျောင်းတိုက်နှင့် သံဃာတော် အရေအတွက် အတည်ပြုပြီး", o: "amore" },
+        { t: "ဆွမ်းဖိုးစာရင်း ကြိုတင်စီစဉ်ပြီး", o: "amore" },
+        { t: "ဆွမ်းကပ်ဆောင်ပြားများ၊ ဆွမ်းခွက်များ ပြင်ဆင်ပြီး", o: "amore" },
+        { t: "ဆွမ်းကပ်သူ အဖွဲ့ သတ်မှတ်ပြီး", o: "amore" },
+        { t: "တရားဟောချိန်နှင့် ကျောင်းထိုင်ဆရာတော်နှင့် ချိန်းဆိုပြီး", o: "amore" },
+      ]
+    },
+    { id: "attire", icon: "◈", name: "သတို့သား / သတို့သမီး အဝတ်အစား",
+      items: [
+        { t: "သတို့သမီး ဝတ်စုံနှင့် လက်ဝတ်ရတနာ အဆင်သင့်", o: "client" },
+        { t: "သတို့သား ဝတ်စုံ အဆင်သင့်", o: "client" },
+        { t: "မနက်ဖြန် ဝတ်ဆင်ရန် ရှိဆွဲ / မွတ်ပြီး", o: "client" },
+      ]
+    },
+    { id: "hair_makeup", icon: "◎", name: "ဆံပင် / မျက်နှာသစ်",
+      items: [
+        { t: "ဆံပင်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး", o: "amore" },
+        { t: "မျက်နှာသစ်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး", o: "amore" },
+        { t: "စမ်းသပ်ခြင်း ပြီးဆုံးပြီး", o: "client" },
+        { t: "ဆေးကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း)", o: "client" },
+      ]
+    },
+    { id: "food", icon: "▭", name: "ဧည့်ခံ အစားအသောက်",
+      items: [
+        { t: "ကြက်သားကောင်တာ အတည်ပြုပြီး (ထမင်း၊ ဟင်းများ)", o: "amore" },
+        { t: "ဧည့်သည်အရေအတွက် ကြက်သားကောင်တာသို့ ပေးပို့ပြီး", o: "client" },
+        { t: "ဒယ်ကားများနှင့် ဝန်ဆောင်မှုအဖွဲ့ စီစဉ်ပြီး", o: "amore" },
+        { t: "သောက်ရေနှင့် အဖျော်ယမကာ စီစဉ်ပြီး", o: "amore" },
+        { t: "ပန်းကန်၊ ခွက်၊ ဇွန်းများ အတည်ပြုပြီး", o: "amore" },
+        { t: "ကျောင်းတိုက်နှင့် ချက်ပြုတ်စတင်ချိန် သဘောတူပြီး", o: "amore" },
+        { t: "အမှိုက်အိတ်နှင့် ဧည့်ခံပြီးနောက် သန့်ရှင်းရေး တာဝန်ခွဲပြီး", o: "amore" },
+      ]
+    },
+    { id: "guests", icon: "▤", name: "ဧည့်သည်များနှင့် လက်ဆောင်",
+      items: [
+        { t: "ဧည့်သည်စာရင်း အတည်ပြုပြီး", o: "client" },
+        { t: "ဖိတ်စာများ ပေးပို့ပြီး (ကျောင်းတိုက်၊ ရက်၊ ဆွမ်းကပ်ချိန်)", o: "client" },
+        { t: "ဧည့်သည် လက်မှတ်ထိုးစာအုပ်နှင့် ဘောပင် ပြင်ဆင်ပြီး", o: "amore" },
+        { t: "လက်ဆောင် / စာအိတ် လက်ခံစားပွဲ စီစဉ်ပြီး", o: "amore" },
+      ]
+    },
+    { id: "helpers", icon: "◁", name: "နေ့တွင် ကူညီသူများ",
+      items: [
+        { t: "ကျောင်းတိုက်ဝင်ပေါက်တွင် ကြိုဆိုသူ သတ်မှတ်ပြီး", o: "amore" },
+        { t: "လက်ဆောင် / စာအိတ် လက်ခံသူ သတ်မှတ်ပြီး", o: "amore" },
+        { t: "ဧည့်ခံ ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး", o: "amore" },
+        { t: "ဆွမ်းကပ်ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး", o: "amore" },
+      ]
+    },
+    { id: "photo_video", icon: "▣", name: "ဓာတ်ပုံ / ဗီဒီယို",
+      items: [
+        { t: "ဓာတ်ပုံဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး", o: "amore" },
+        { t: "ဗီဒီယိုဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး", o: "amore" },
+        { t: "မှတ်တမ်းတင်ရမည့် အဓိကအခိုက်အတန့်များ မျှဝေပြီး", o: "amore" },
+      ]
+    },
+    { id: "logistics", icon: "⚙", name: "နေ့ဆိုင်ရာ စီစဉ်မှုများ",
+      items: [
+        { t: "သတို့တွဲ သယ်ယူပို့ဆောင်ရေး စီစဉ်ပြီး", o: "client" },
+        { t: "ကျောင်းတိုက် ရောက်ရမည့်အချိန် အတည်ပြုပြီး", o: "client" },
+        { t: "ကျောင်းတိုက် စည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ ဆူညံမှု)", o: "amore" },
+        { t: "အခမ်းအနားပြီးနောက် ကျောင်းတိုက် သန့်ရှင်းရေး ပြုလုပ်ပြီး", o: "amore" },
+      ]
+    },
   ]
 };
 
 let currentLang = 'en';
-let currentFilter = 'all';
-let state = {};    // true = checked
-let naState = {};  // true = N/A
+let statusFilter = 'all';
+let ownerFilter = 'all';
+let state = {};
+let naState = {};
+let ownerState = {}; // per item: 'amore' | 'client' | null
 let collapsed = {};
 let customItems = {};
 
 SECTIONS.en.forEach(s => {
   state[s.id] = s.items.map(() => false);
   naState[s.id] = s.items.map(() => false);
+  ownerState[s.id] = s.items.map(item => item.o || null);
   collapsed[s.id] = false;
   customItems[s.id] = [];
 });
@@ -307,36 +355,62 @@ function allItems(sec) {
   return [...sec.items, ...customItems[sec.id]];
 }
 
-function setFilter(f) {
-  currentFilter = f;
-  ['all','pending','done','na'].forEach(x => {
-    document.getElementById('filter-' + x).classList.toggle('active', x === f);
-  });
+function setFilter(type, val) {
+  if (type === 'status') {
+    statusFilter = val;
+    ['all','pending','done','na'].forEach(x => {
+      const el = document.getElementById('filter-' + x);
+      el.className = 'filter-btn' + (x === val ? ' active' : '');
+    });
+  } else {
+    ownerFilter = val;
+    ['all','amore','client','unset'].forEach(x => {
+      const el = document.getElementById('filter-owner-' + x);
+      let cls = 'filter-btn';
+      if (x === val) {
+        if (x === 'amore') cls += ' active-amore';
+        else if (x === 'client') cls += ' active-client';
+        else cls += ' active';
+      }
+      el.className = cls;
+    });
+  }
   applyFilter();
 }
 
+function itemVisible(secId, i) {
+  const isChecked = state[secId][i];
+  const isNA = naState[secId][i];
+  const owner = ownerState[secId][i];
+
+  let statusOk = false;
+  if (statusFilter === 'all') statusOk = true;
+  else if (statusFilter === 'pending') statusOk = !isChecked && !isNA;
+  else if (statusFilter === 'done') statusOk = isChecked && !isNA;
+  else if (statusFilter === 'na') statusOk = isNA;
+
+  let ownerOk = false;
+  if (ownerFilter === 'all') ownerOk = true;
+  else if (ownerFilter === 'amore') ownerOk = owner === 'amore';
+  else if (ownerFilter === 'client') ownerOk = owner === 'client';
+  else if (ownerFilter === 'unset') ownerOk = !owner;
+
+  return statusOk && ownerOk;
+}
+
 function applyFilter() {
-  const sections = document.querySelectorAll('.section');
-  sections.forEach(secEl => {
+  document.querySelectorAll('.section').forEach(secEl => {
     const secId = secEl.getAttribute('data-id');
     const rows = secEl.querySelectorAll('.item-row[data-idx]');
     let visible = 0;
     rows.forEach(row => {
       const i = parseInt(row.getAttribute('data-idx'));
-      const isChecked = state[secId][i];
-      const isNA = naState[secId][i];
-      let show = false;
-      if (currentFilter === 'all') show = true;
-      else if (currentFilter === 'pending') show = !isChecked && !isNA;
-      else if (currentFilter === 'done') show = isChecked && !isNA;
-      else if (currentFilter === 'na') show = isNA;
+      const show = itemVisible(secId, i);
       row.classList.toggle('hidden', !show);
       if (show) visible++;
     });
-    // Hide add-row in filtered views
     const addRow = secEl.querySelector('.add-item');
-    if (addRow) addRow.style.display = currentFilter === 'all' ? '' : 'none';
-    // Hide entire section if nothing visible
+    if (addRow) addRow.style.display = (statusFilter === 'all' && ownerFilter === 'all') ? '' : 'none';
     secEl.classList.toggle('empty-section', visible === 0);
   });
 }
@@ -353,6 +427,21 @@ function updateProgress() {
   const pct = total ? Math.round(checked / total * 100) : 0;
   document.getElementById("progress-fill").style.width = pct + "%";
   document.getElementById("progress-text").textContent = LANG[currentLang].progress(checked, total, na);
+}
+
+function cycleOwner(secId, i) {
+  const cur = ownerState[secId][i];
+  ownerState[secId][i] = cur === null ? 'amore' : cur === 'amore' ? 'client' : null;
+  // update button in place
+  const btn = document.querySelector(`.owner-btn[data-sec="${secId}"][data-idx="${i}"]`);
+  if (btn) {
+    const L = LANG[currentLang];
+    const o = ownerState[secId][i];
+    btn.className = 'owner-btn' + (o === 'amore' ? ' amore' : o === 'client' ? ' client' : '');
+    btn.textContent = o === 'amore' ? L.amore_label : o === 'client' ? L.client_label : '—';
+    btn.title = o ? '' : 'Click to assign owner';
+  }
+  applyFilter();
 }
 
 function renderSections() {
@@ -376,7 +465,7 @@ function renderSections() {
     header.innerHTML = `
       <span class="section-icon">${sec.icon}</span>
       <span class="section-name">${sec.name}</span>
-      <span class="section-count" id="count-${sec.id}">${checkedCount}/${activeTotal}${naCount ? ` <span style="color:#C8975A;font-size:11px">·${naCount} N/A</span>` : ''}</span>
+      <span class="section-count" id="count-${sec.id}">${checkedCount}/${activeTotal}${naCount ? ` <span style="color:#C8975A;font-size:11px">· ${naCount} N/A</span>` : ''}</span>
       <span class="section-toggle">${collapsed[sec.id] ? "▸" : "▾"}</span>
     `;
     header.onclick = () => { collapsed[sec.id] = !collapsed[sec.id]; renderSections(); };
@@ -384,33 +473,47 @@ function renderSections() {
     const body = document.createElement("div");
     body.className = "section-body" + (collapsed[sec.id] ? " collapsed" : "");
 
-    items.forEach((label, i) => {
+    items.forEach((item, i) => {
+      const label = typeof item === 'string' ? item : item.t;
       const row = document.createElement("div");
       row.className = "item-row";
       row.setAttribute('data-idx', i);
       const cbId = `cb-${sec.id}-${i}`;
       const isChecked = state[sec.id][i];
       const isNA = naState[sec.id][i];
+      const owner = ownerState[sec.id][i];
 
       let labelClass = "item-label";
       if (isNA) labelClass += " na";
       else if (isChecked) labelClass += " checked";
 
+      const ownerClass = 'owner-btn' + (owner === 'amore' ? ' amore' : owner === 'client' ? ' client' : '');
+      const ownerText = owner === 'amore' ? L.amore_label : owner === 'client' ? L.client_label : '—';
+      const ownerTitle = owner ? '' : 'Click to assign owner';
+
       row.innerHTML = `
         <input type="checkbox" id="${cbId}" ${isChecked && !isNA ? "checked" : ""} ${isNA ? "disabled" : ""} />
         <label class="${labelClass}" for="${cbId}">${label}</label>
-        <button class="na-btn${isNA ? ' active' : ''}" data-sec="${sec.id}" data-idx="${i}">${L.na_label}</button>
+        <button class="${ownerClass}" data-sec="${sec.id}" data-idx="${i}" title="${ownerTitle}">${ownerText}</button>
+        <button class="na-btn${isNA ? ' active' : ''}" data-na-sec="${sec.id}" data-na-idx="${i}">${L.na_label}</button>
       `;
 
       row.querySelector("input").onchange = function() {
         if (naState[sec.id][i]) return;
         state[sec.id][i] = this.checked;
-        refreshSectionCount(sec.id, items.length);
-        updateProgress();
-        applyFilter();
-        // update label style without full re-render
         const lbl = row.querySelector('.item-label');
         lbl.className = 'item-label' + (this.checked ? ' checked' : '');
+        const naCount2 = naState[sec.id].filter(Boolean).length;
+        const cc = state[sec.id].filter((v, j) => v && !naState[sec.id][j]).length;
+        const el = document.getElementById('count-' + sec.id);
+        if (el) el.innerHTML = `${cc}/${items.length - naCount2}${naCount2 ? ` <span style="color:#C8975A;font-size:11px">· ${naCount2} N/A</span>` : ''}`;
+        updateProgress();
+        applyFilter();
+      };
+
+      row.querySelector('.owner-btn').onclick = function(e) {
+        e.stopPropagation();
+        cycleOwner(sec.id, i);
       };
 
       row.querySelector('.na-btn').onclick = function() {
@@ -425,15 +528,16 @@ function renderSections() {
 
     const addRow = document.createElement("div");
     addRow.className = "add-item";
-    addRow.innerHTML = `<input class="add-input" placeholder="${L.add_placeholder}" /><button class="add-btn">${L.add_btn}</button>`;
+    addRow.innerHTML = `<input class="add-input" placeholder="${L.add_placeholder}" /><button class="add-btn-el">${L.add_btn}</button>`;
     const inp = addRow.querySelector("input");
     const btn = addRow.querySelector("button");
     const doAdd = () => {
       const v = inp.value.trim();
       if (!v) return;
-      customItems[sec.id].push(v);
+      customItems[sec.id].push({ t: v, o: null });
       state[sec.id].push(false);
       naState[sec.id].push(false);
+      ownerState[sec.id].push(null);
       inp.value = "";
       renderSections();
       updateProgress();
@@ -451,14 +555,6 @@ function renderSections() {
   applyFilter();
 }
 
-function refreshSectionCount(secId, total) {
-  const naCount = naState[secId].filter(Boolean).length;
-  const checkedCount = state[secId].filter((v, i) => v && !naState[secId][i]).length;
-  const activeTotal = total - naCount;
-  const el = document.getElementById('count-' + secId);
-  if (el) el.innerHTML = `${checkedCount}/${activeTotal}${naCount ? ` <span style="color:#C8975A;font-size:11px">·${naCount} N/A</span>` : ''}`;
-}
-
 function setLang(lang) {
   currentLang = lang;
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
@@ -466,9 +562,11 @@ function setLang(lang) {
   const L = LANG[lang];
   document.getElementById('title-text').textContent = L.title;
   document.getElementById('subtitle-text').textContent = L.subtitle;
+  document.getElementById('label-status').textContent = L.label_status;
+  document.getElementById('label-owner').textContent = L.label_owner;
   document.querySelectorAll('[data-key]').forEach(el => {
     const k = el.getAttribute('data-key');
-    if (L[k]) el.textContent = L[k];
+    if (L[k] !== undefined) el.textContent = L[k];
   });
   document.querySelectorAll('[data-key-ph]').forEach(el => {
     const k = el.getAttribute('data-key-ph');
