@@ -8,25 +8,21 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f5f2; color: #1a1a1a; padding: 2rem 1rem; }
   .app { max-width: 680px; margin: 0 auto; }
-
   .top-bar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; gap: 12px; }
   .top-bar-text h1 { font-size: 19px; font-weight: 600; margin-bottom: 3px; }
   .top-bar-text .subtitle { font-size: 12px; color: #999; }
   .lang-toggle { display: flex; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
   .lang-btn { font-size: 12px; padding: 6px 13px; background: #fff; color: #888; cursor: pointer; border: none; outline: none; transition: background 0.15s, color 0.15s; }
   .lang-btn.active { background: #B07D3A; color: #fff; }
-
   .event-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.5rem; }
   .meta-field { display: flex; flex-direction: column; gap: 4px; }
   .meta-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
   .meta-input { font-size: 13px; padding: 7px 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a1a; outline: none; }
   .meta-input:focus { border-color: #B07D3A; }
-
   .progress-wrap { margin-bottom: 1.25rem; }
   .progress-bar { height: 4px; background: #e5e5e5; border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
   .progress-fill { height: 100%; border-radius: 99px; background: #B07D3A; transition: width 0.3s ease; }
   .progress-text { font-size: 12px; color: #999; }
-
   .filter-row { display: flex; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; align-items: center; }
   .filter-row-label { font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 0.05em; min-width: 44px; }
   .filter-btn { font-size: 12px; padding: 5px 13px; border: 1px solid #ddd; border-radius: 20px; background: #fff; color: #666; cursor: pointer; transition: all 0.15s; }
@@ -34,7 +30,6 @@
   .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
   .filter-btn.active-amore { background: #1D9E75; color: #fff; border-color: #1D9E75; }
   .filter-btn.active-client { background: #5B8DD9; color: #fff; border-color: #5B8DD9; }
-
   .section { margin-bottom: 8px; border: 1px solid #e8e5e0; border-radius: 12px; overflow: hidden; background: #fff; }
   .section.empty-section { display: none; }
   .section-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #faf8f5; cursor: pointer; user-select: none; }
@@ -43,37 +38,30 @@
   .section-count { font-size: 12px; color: #bbb; }
   .section-toggle { font-size: 10px; color: #ccc; }
   .section-body.collapsed { display: none; }
-
   .item-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 14px; border-bottom: 1px solid #f2ede8; }
   .item-row:last-of-type { border-bottom: none; }
   .item-row.hidden { display: none; }
   .item-row input[type=checkbox] { width: 14px; height: 14px; accent-color: #B07D3A; cursor: pointer; flex-shrink: 0; margin-top: 4px; }
-
   .item-label { font-size: 13px; color: #1a1a1a; flex: 1; line-height: 1.6; cursor: text; border-radius: 4px; padding: 1px 4px; margin: 0 -4px; outline: none; min-width: 0; word-break: break-word; transition: background 0.1s; }
   .item-label:hover { background: #f5f3f0; }
   .item-label:focus { background: #fff; box-shadow: 0 0 0 2px #B07D3A44; }
   .item-label.checked { color: #c0bbb4; text-decoration: line-through; }
   .item-label.na { color: #c8c0b8; text-decoration: line-through; font-style: italic; }
   .item-label[contenteditable=true]:empty:before { content: attr(data-placeholder); color: #ccc; font-style: italic; }
-
   .owner-btn { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; border: 1px solid #ddd; cursor: pointer; flex-shrink: 0; margin-top: 4px; transition: all 0.15s; white-space: nowrap; background: #fff; color: #bbb; letter-spacing: 0.02em; }
   .owner-btn.amore { background: #e8f7f2; border-color: #1D9E75; color: #0F6E56; }
   .owner-btn.client { background: #e8f0fc; border-color: #5B8DD9; color: #2c5fb3; }
-
   .na-btn { font-size: 10px; padding: 2px 7px; border-radius: 10px; border: 1px solid #ddd; background: #fff; color: #aaa; cursor: pointer; flex-shrink: 0; margin-top: 4px; white-space: nowrap; transition: all 0.15s; }
   .na-btn:hover { background: #f5f0ea; }
   .na-btn.active { background: #f0e8da; border-color: #C8975A; color: #8C6230; }
-
   .del-btn { font-size: 13px; padding: 0 3px; background: none; border: none; color: #ddd; cursor: pointer; flex-shrink: 0; margin-top: 3px; line-height: 1; transition: color 0.15s; }
   .del-btn:hover { color: #e05555; }
   .item-row:not(:hover) .del-btn { opacity: 0; pointer-events: none; }
-
   .add-item { display: flex; gap: 6px; padding: 7px 14px; border-top: 1px solid #f0ede8; }
   .add-input { flex: 1; font-size: 12px; padding: 5px 9px; border: 1px solid #ddd; border-radius: 7px; background: #fafafa; color: #1a1a1a; outline: none; }
   .add-input:focus { border-color: #B07D3A; background: #fff; }
   .add-btn-el { font-size: 12px; padding: 5px 10px; border: 1px solid #ddd; border-radius: 7px; background: #fff; color: #666; cursor: pointer; }
   .add-btn-el:hover { background: #f0f0f0; }
-
   .footer-actions { display: flex; gap: 8px; margin-top: 1.25rem; flex-wrap: wrap; }
   .footer-btn { font-size: 12px; padding: 7px 13px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #555; cursor: pointer; }
   .footer-btn:hover { background: #f5f3f0; }
@@ -83,14 +71,11 @@
   .footer-btn.success:hover { background: #0F6E56; }
   .footer-btn.info { background: #5B8DD9; color: #fff; border-color: #5B8DD9; }
   .footer-btn.info:hover { background: #2c5fb3; }
-
-  /* image generation overlay */
   #img-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:999; align-items:center; justify-content:center; flex-direction:column; gap:10px; }
   #img-overlay.show { display:flex; }
   #img-overlay p { color:#fff; font-size:13px; }
   #img-overlay .spinner { width:28px;height:28px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
-
   @media print {
     body { background:#fff; padding:1rem; }
     .footer-actions,.add-item,.lang-toggle,.filter-row,.na-btn,.del-btn { display:none !important; }
@@ -104,7 +89,6 @@
 </head>
 <body>
 <div class="app" id="main-app">
-
   <div class="top-bar">
     <div class="top-bar-text">
       <h1 id="title-text">Monastery Wedding Checklist</h1>
@@ -115,31 +99,16 @@
       <button class="lang-btn" id="btn-my" onclick="setLang('my')">မြန်မာ</button>
     </div>
   </div>
-
   <div class="event-meta">
-    <div class="meta-field">
-      <span class="meta-label" data-key="meta_couple">Couple</span>
-      <input class="meta-input" id="meta-couple" placeholder="e.g. Ma Aye & Ko Kyaw" />
-    </div>
-    <div class="meta-field">
-      <span class="meta-label" data-key="meta_date">Wedding Date</span>
-      <input class="meta-input" id="meta-date" type="date" />
-    </div>
-    <div class="meta-field">
-      <span class="meta-label" data-key="meta_monastery">Monastery</span>
-      <input class="meta-input" id="meta-monastery" data-key-ph="ph_monastery" placeholder="Monastery name" />
-    </div>
-    <div class="meta-field">
-      <span class="meta-label" data-key="meta_soon">Alms time (Mingalar Soon)</span>
-      <input class="meta-input" id="meta-soon" data-key-ph="ph_soon" placeholder="e.g. 10:00 AM" />
-    </div>
+    <div class="meta-field"><span class="meta-label" data-key="meta_couple">Couple</span><input class="meta-input" id="meta-couple" placeholder="e.g. Ma Aye & Ko Kyaw" /></div>
+    <div class="meta-field"><span class="meta-label" data-key="meta_date">Wedding Date</span><input class="meta-input" id="meta-date" type="date" /></div>
+    <div class="meta-field"><span class="meta-label" data-key="meta_monastery">Monastery</span><input class="meta-input" id="meta-monastery" data-key-ph="ph_monastery" placeholder="Monastery name" /></div>
+    <div class="meta-field"><span class="meta-label" data-key="meta_soon">Alms time (Mingalar Soon)</span><input class="meta-input" id="meta-soon" data-key-ph="ph_soon" placeholder="e.g. 10:00 AM" /></div>
   </div>
-
   <div class="progress-wrap">
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
     <div class="progress-text" id="progress-text"></div>
   </div>
-
   <div class="filter-row">
     <span class="filter-row-label" id="label-status">Status</span>
     <button class="filter-btn active" id="filter-all"     onclick="setFilter('status','all')"     data-key="filter_all">All</button>
@@ -154,76 +123,71 @@
     <button class="filter-btn"        id="filter-owner-client" onclick="setFilter('owner','client')" data-key="filter_owner_client">Client</button>
     <button class="filter-btn"        id="filter-owner-unset"  onclick="setFilter('owner','unset')"  data-key="filter_owner_unset">Unassigned</button>
   </div>
-
   <div id="sections"></div>
-
   <div class="footer-actions">
     <button class="footer-btn" onclick="expandAll()"   data-key="btn_expand">Expand all</button>
     <button class="footer-btn" onclick="collapseAll()" data-key="btn_collapse">Collapse all</button>
     <button class="footer-btn" onclick="uncheckAll()"  data-key="btn_reset">Reset all</button>
-    <button class="footer-btn primary"  onclick="window.print()"    data-key="btn_print">Print / PDF</button>
-    <button class="footer-btn success"  onclick="downloadHTML()"    data-key="btn_html">↓ HTML</button>
-    <button class="footer-btn info"     onclick="downloadImage()"   data-key="btn_image">↓ Image</button>
+    <button class="footer-btn primary" onclick="window.print()"  data-key="btn_print">Print / PDF</button>
+    <button class="footer-btn success" onclick="downloadHTML()"  data-key="btn_html">↓ HTML</button>
+    <button class="footer-btn info"    onclick="downloadImage()" data-key="btn_image">↓ Image</button>
   </div>
 </div>
-
-<div id="img-overlay">
-  <div class="spinner"></div>
-  <p id="overlay-msg">Generating image…</p>
-</div>
-
+<div id="img-overlay"><div class="spinner"></div><p id="overlay-msg">Generating image…</p></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+// ─── TEMPLATE SOURCE ────────────────────────────────────────────────────────
+// Stored as a string so downloadHTML() can inject state into it directly,
+// bypassing the DOM (which does NOT reflect JS state reliably).
+const PAGE_TEMPLATE = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Monastery Wedding Checklist</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f5f2;color:#1a1a1a;padding:2rem 1rem}.app{max-width:680px;margin:0 auto}.top-bar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;gap:12px}.top-bar-text h1{font-size:19px;font-weight:600;margin-bottom:3px}.top-bar-text .subtitle{font-size:12px;color:#999}.lang-toggle{display:flex;border:1px solid #ddd;border-radius:8px;overflow:hidden;flex-shrink:0}.lang-btn{font-size:12px;padding:6px 13px;background:#fff;color:#888;cursor:pointer;border:none;outline:none;transition:background .15s,color .15s}.lang-btn.active{background:#B07D3A;color:#fff}.event-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem}.meta-field{display:flex;flex-direction:column;gap:4px}.meta-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.05em}.meta-input{font-size:13px;padding:7px 10px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#1a1a1a;outline:none}.meta-input:focus{border-color:#B07D3A}.progress-wrap{margin-bottom:1.25rem}.progress-bar{height:4px;background:#e5e5e5;border-radius:99px;overflow:hidden;margin-bottom:5px}.progress-fill{height:100%;border-radius:99px;background:#B07D3A;transition:width .3s ease}.progress-text{font-size:12px;color:#999}.filter-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;align-items:center}.filter-row-label{font-size:11px;color:#bbb;text-transform:uppercase;letter-spacing:.05em;min-width:44px}.filter-btn{font-size:12px;padding:5px 13px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#666;cursor:pointer;transition:all .15s}.filter-btn:hover{background:#f5f3f0}.filter-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}.filter-btn.active-amore{background:#1D9E75;color:#fff;border-color:#1D9E75}.filter-btn.active-client{background:#5B8DD9;color:#fff;border-color:#5B8DD9}.section{margin-bottom:8px;border:1px solid #e8e5e0;border-radius:12px;overflow:hidden;background:#fff}.section.empty-section{display:none}.section-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#faf8f5;cursor:pointer;user-select:none}.section-icon{font-size:14px;width:20px;text-align:center}.section-name{font-size:13px;font-weight:600;color:#1a1a1a;flex:1}.section-count{font-size:12px;color:#bbb}.section-toggle{font-size:10px;color:#ccc}.section-body.collapsed{display:none}.item-row{display:flex;align-items:flex-start;gap:8px;padding:6px 14px;border-bottom:1px solid #f2ede8}.item-row:last-of-type{border-bottom:none}.item-row.hidden{display:none}.item-row input[type=checkbox]{width:14px;height:14px;accent-color:#B07D3A;cursor:pointer;flex-shrink:0;margin-top:4px}.item-label{font-size:13px;color:#1a1a1a;flex:1;line-height:1.6;cursor:text;border-radius:4px;padding:1px 4px;margin:0 -4px;outline:none;min-width:0;word-break:break-word;transition:background .1s}.item-label:hover{background:#f5f3f0}.item-label:focus{background:#fff;box-shadow:0 0 0 2px #B07D3A44}.item-label.checked{color:#c0bbb4;text-decoration:line-through}.item-label.na{color:#c8c0b8;text-decoration:line-through;font-style:italic}.item-label[contenteditable=true]:empty:before{content:attr(data-placeholder);color:#ccc;font-style:italic}.owner-btn{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid #ddd;cursor:pointer;flex-shrink:0;margin-top:4px;transition:all .15s;white-space:nowrap;background:#fff;color:#bbb;letter-spacing:.02em}.owner-btn.amore{background:#e8f7f2;border-color:#1D9E75;color:#0F6E56}.owner-btn.client{background:#e8f0fc;border-color:#5B8DD9;color:#2c5fb3}.na-btn{font-size:10px;padding:2px 7px;border-radius:10px;border:1px solid #ddd;background:#fff;color:#aaa;cursor:pointer;flex-shrink:0;margin-top:4px;white-space:nowrap;transition:all .15s}.na-btn:hover{background:#f5f0ea}.na-btn.active{background:#f0e8da;border-color:#C8975A;color:#8C6230}.del-btn{font-size:13px;padding:0 3px;background:none;border:none;color:#ddd;cursor:pointer;flex-shrink:0;margin-top:3px;line-height:1;transition:color .15s}.del-btn:hover{color:#e05555}.item-row:not(:hover) .del-btn{opacity:0;pointer-events:none}.add-item{display:flex;gap:6px;padding:7px 14px;border-top:1px solid #f0ede8}.add-input{flex:1;font-size:12px;padding:5px 9px;border:1px solid #ddd;border-radius:7px;background:#fafafa;color:#1a1a1a;outline:none}.add-input:focus{border-color:#B07D3A;background:#fff}.add-btn-el{font-size:12px;padding:5px 10px;border:1px solid #ddd;border-radius:7px;background:#fff;color:#666;cursor:pointer}.add-btn-el:hover{background:#f0f0f0}.footer-actions{display:flex;gap:8px;margin-top:1.25rem;flex-wrap:wrap}.footer-btn{font-size:12px;padding:7px 13px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#555;cursor:pointer}.footer-btn:hover{background:#f5f3f0}.footer-btn.primary{background:#B07D3A;color:#fff;border-color:#B07D3A}.footer-btn.primary:hover{background:#8C6230}.footer-btn.success{background:#1D9E75;color:#fff;border-color:#1D9E75}.footer-btn.success:hover{background:#0F6E56}.footer-btn.info{background:#5B8DD9;color:#fff;border-color:#5B8DD9}.footer-btn.info:hover{background:#2c5fb3}#img-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:10px}#img-overlay.show{display:flex}#img-overlay p{color:#fff;font-size:13px}#img-overlay .spinner{width:28px;height:28px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media print{body{background:#fff;padding:1rem}.footer-actions,.add-item,.lang-toggle,.filter-row,.na-btn,.del-btn{display:none!important}.section-body.collapsed{display:block!important}.item-row.hidden{display:none!important}.section.empty-section{display:none!important}.owner-btn{border:1px solid #ddd!important}.item-label{padding:0;background:none!important;box-shadow:none!important}}
+</style></head><body>
+<div class="app" id="main-app">
+  <div class="top-bar"><div class="top-bar-text"><h1 id="title-text">Monastery Wedding Checklist</h1><p class="subtitle" id="subtitle-text">Myanmar Buddhist tradition — reusable master template</p></div><div class="lang-toggle"><button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button><button class="lang-btn" id="btn-my" onclick="setLang('my')">မြန်မာ</button></div></div>
+  <div class="event-meta"><div class="meta-field"><span class="meta-label" data-key="meta_couple">Couple</span><input class="meta-input" id="meta-couple" placeholder="e.g. Ma Aye & Ko Kyaw"/></div><div class="meta-field"><span class="meta-label" data-key="meta_date">Wedding Date</span><input class="meta-input" id="meta-date" type="date"/></div><div class="meta-field"><span class="meta-label" data-key="meta_monastery">Monastery</span><input class="meta-input" id="meta-monastery" data-key-ph="ph_monastery" placeholder="Monastery name"/></div><div class="meta-field"><span class="meta-label" data-key="meta_soon">Alms time (Mingalar Soon)</span><input class="meta-input" id="meta-soon" data-key-ph="ph_soon" placeholder="e.g. 10:00 AM"/></div></div>
+  <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div><div class="progress-text" id="progress-text"></div></div>
+  <div class="filter-row"><span class="filter-row-label" id="label-status">Status</span><button class="filter-btn active" id="filter-all" onclick="setFilter('status','all')" data-key="filter_all">All</button><button class="filter-btn" id="filter-pending" onclick="setFilter('status','pending')" data-key="filter_pending">Pending</button><button class="filter-btn" id="filter-done" onclick="setFilter('status','done')" data-key="filter_done">Done</button><button class="filter-btn" id="filter-na" onclick="setFilter('status','na')" data-key="filter_na">N/A</button></div>
+  <div class="filter-row" style="margin-bottom:1rem"><span class="filter-row-label" id="label-owner">Owner</span><button class="filter-btn active" id="filter-owner-all" onclick="setFilter('owner','all')" data-key="filter_owner_all">All</button><button class="filter-btn" id="filter-owner-amore" onclick="setFilter('owner','amore')" data-key="filter_owner_amore">Amore</button><button class="filter-btn" id="filter-owner-client" onclick="setFilter('owner','client')" data-key="filter_owner_client">Client</button><button class="filter-btn" id="filter-owner-unset" onclick="setFilter('owner','unset')" data-key="filter_owner_unset">Unassigned</button></div>
+  <div id="sections"></div>
+  <div class="footer-actions"><button class="footer-btn" onclick="expandAll()" data-key="btn_expand">Expand all</button><button class="footer-btn" onclick="collapseAll()" data-key="btn_collapse">Collapse all</button><button class="footer-btn" onclick="uncheckAll()" data-key="btn_reset">Reset all</button><button class="footer-btn primary" onclick="window.print()" data-key="btn_print">Print / PDF</button><button class="footer-btn success" onclick="downloadHTML()" data-key="btn_html">↓ HTML</button><button class="footer-btn info" onclick="downloadImage()" data-key="btn_image">↓ Image</button></div>
+</div>
+<div id="img-overlay"><div class="spinner"></div><p id="overlay-msg">Generating image…</p></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>
+<script>
+%%MAIN_SCRIPT%%
+<\/script></body></html>`;
+
+// ─── LANGUAGE STRINGS ───────────────────────────────────────────────────────
 const LANG = {
-  en: {
-    title:"Monastery Wedding Checklist", subtitle:"Myanmar Buddhist tradition — reusable master template",
-    meta_couple:"Couple", meta_date:"Wedding Date", meta_monastery:"Monastery", meta_soon:"Alms time (Mingalar Soon)",
-    ph_monastery:"Monastery name", ph_soon:"e.g. 10:00 AM",
-    progress:(c,t,na)=>`${c} of ${t} items done${na?` · ${na} N/A`:''}`,
-    add_placeholder:"Add custom item...", add_btn:"+ Add",
-    btn_expand:"Expand all", btn_collapse:"Collapse all", btn_reset:"Reset all", btn_print:"Print / PDF",
-    btn_html:"↓ HTML", btn_image:"↓ Image",
-    filter_all:"All", filter_pending:"Pending", filter_done:"Done", filter_na:"N/A",
-    filter_owner_all:"All", filter_owner_amore:"Amore", filter_owner_client:"Client", filter_owner_unset:"Unassigned",
-    label_status:"Status", label_owner:"Owner",
-    na_label:"N/A", amore_label:"Amore", client_label:"Client", edit_placeholder:"Task name…",
-  },
-  my: {
-    title:"မင်္ဂလာဦးဆွမ်းကျွေး လုပ်ငန်းစဉ်ဇယား", subtitle:"မြန်မာ ဗုဒ္ဓဘာသာ ထုံးတမ်းစဉ်လာ — ကြိမ်ဖန်များစွာ အသုံးပြုနိုင်သော ပုံစံ",
-    meta_couple:"သတို့သား / သတို့သမီး", meta_date:"မင်္ဂလာဆောင် နေ့", meta_monastery:"ကျောင်းတိုက်", meta_soon:"မင်္ဂလာဆွမ်း ကျွေးချိန်",
-    ph_monastery:"ကျောင်းတိုက်အမည်", ph_soon:"ဥပမာ မနက် ၁၀ နာရီ",
-    progress:(c,t,na)=>`${t} ခုအနက် ${c} ခု ပြီးပြီ${na?` · မလိုအပ် ${na} ခု`:''}`,
-    add_placeholder:"အကြောင်းအရာ ထပ်ထည့်ရန်...", add_btn:"+ ထည့်",
-    btn_expand:"အားလုံး ဖွင့်", btn_collapse:"အားလုံး ပိတ်", btn_reset:"အားလုံး ပြန်သိမ်း", btn_print:"ပရင့်ထုတ် / PDF သိမ်း",
-    btn_html:"↓ HTML", btn_image:"↓ ပုံ",
-    filter_all:"အားလုံး", filter_pending:"မပြီးသေး", filter_done:"ပြီးပြီ", filter_na:"မလိုအပ်",
-    filter_owner_all:"အားလုံး", filter_owner_amore:"အမိုရေ", filter_owner_client:"ဧည့်သည်", filter_owner_unset:"မသတ်မှတ်ရသေး",
-    label_status:"အခြေအနေ", label_owner:"တာဝန်ခံ",
-    na_label:"မလိုအပ်", amore_label:"အမိုရေ", client_label:"ဧည့်သည်", edit_placeholder:"လုပ်ငန်းအမည်…",
-  }
+  en:{title:"Monastery Wedding Checklist",subtitle:"Myanmar Buddhist tradition — reusable master template",meta_couple:"Couple",meta_date:"Wedding Date",meta_monastery:"Monastery",meta_soon:"Alms time (Mingalar Soon)",ph_monastery:"Monastery name",ph_soon:"e.g. 10:00 AM",progress:(c,t,na)=>`${c} of ${t} items done${na?` · ${na} N/A`:''}`,add_placeholder:"Add custom item...",add_btn:"+ Add",btn_expand:"Expand all",btn_collapse:"Collapse all",btn_reset:"Reset all",btn_print:"Print / PDF",btn_html:"↓ HTML",btn_image:"↓ Image",filter_all:"All",filter_pending:"Pending",filter_done:"Done",filter_na:"N/A",filter_owner_all:"All",filter_owner_amore:"Amore",filter_owner_client:"Client",filter_owner_unset:"Unassigned",label_status:"Status",label_owner:"Owner",na_label:"N/A",amore_label:"Amore",client_label:"Client",edit_placeholder:"Task name…"},
+  my:{title:"မင်္ဂလာဦးဆွမ်းကျွေး လုပ်ငန်းစဉ်ဇယား",subtitle:"မြန်မာ ဗုဒ္ဓဘာသာ ထုံးတမ်းစဉ်လာ — ကြိမ်ဖန်များစွာ အသုံးပြုနိုင်သော ပုံစံ",meta_couple:"သတို့သား / သတို့သမီး",meta_date:"မင်္ဂလာဆောင် နေ့",meta_monastery:"ကျောင်းတိုက်",meta_soon:"မင်္ဂလာဆွမ်း ကျွေးချိန်",ph_monastery:"ကျောင်းတိုက်အမည်",ph_soon:"ဥပမာ မနက် ၁၀ နာရီ",progress:(c,t,na)=>`${t} ခုအနက် ${c} ခု ပြီးပြီ${na?` · မလိုအပ် ${na} ခု`:''}`,add_placeholder:"အကြောင်းအရာ ထပ်ထည့်ရန်...",add_btn:"+ ထည့်",btn_expand:"အားလုံး ဖွင့်",btn_collapse:"အားလုံး ပိတ်",btn_reset:"အားလုံး ပြန်သိမ်း",btn_print:"ပရင့်ထုတ် / PDF သိမ်း",btn_html:"↓ HTML",btn_image:"↓ ပုံ",filter_all:"အားလုံး",filter_pending:"မပြီးသေး",filter_done:"ပြီးပြီ",filter_na:"မလိုအပ်",filter_owner_all:"အားလုံး",filter_owner_amore:"အမိုရေ",filter_owner_client:"ဧည့်သည်",filter_owner_unset:"မသတ်မှတ်ရသေး",label_status:"အခြေအနေ",label_owner:"တာဝန်ခံ",na_label:"မလိုအပ်",amore_label:"အမိုရေ",client_label:"ဧည့်သည်",edit_placeholder:"လုပ်ငန်းအမည်…"}
 };
 
+// ─── SECTION DEFINITIONS ────────────────────────────────────────────────────
 const SECTIONS_DATA = [
-  { id:"monk_offering", icon:"☸", name:{en:"Monk offering (Mingalar Soon)",my:"မင်္ဂလာဆွမ်း ကျွေးလှူခြင်း"}, items:[
+  {id:"monk_offering",icon:"☸",name:{en:"Monk offering (Mingalar Soon)",my:"မင်္ဂလာဆွမ်း ကျွေးလှူခြင်း"},items:[
     {t:{en:"Number of monks confirmed with monastery",my:"ကျောင်းတိုက်နှင့် သံဃာတော် အရေအတွက် အတည်ပြုပြီး"},o:"client"},
     {t:{en:"Soon menu planned with caterer",my:"မင်္ဂလာဆွမ်း စာရင်း Catering ဝန်ဆောင်မှုနှင့် ညှိနှိုင်းပြီး"},o:null},
     {t:{en:"Offering trays, bowls & covers prepared",my:"ဆွမ်းအုပ်နှင့် ဆွမ်းပြင်ပစ္စည်းများ ပြင်ဆင်ပြီး"},o:null},
     {t:{en:"Monk-serving team assigned",my:"ဆွမ်းကပ်သူ အဖွဲ့ သတ်မှတ်ပြီး"},o:"amore"},
     {t:{en:"Sermon & blessing time confirmed with head monk",my:"ကျောင်းထိုင်ဆရာတော်နှင့် တရားဟောချိန်နှင့် ကောင်းချီးပေးချိန် ညှိနှိုင်းပြီး"},o:null},
   ]},
-  { id:"attire", icon:"◈", name:{en:"Couple's attire & flowers",my:"သတို့သား/သမီး အဝတ်အစားနှင့် ပန်းများ"}, items:[
+  {id:"attire",icon:"◈",name:{en:"Couple's attire & flowers",my:"သတို့သား/သမီး အဝတ်အစားနှင့် ပန်းများ"},items:[
     {t:{en:"Bride's outfit & jewelry ready",my:"သတို့သမီး ဝတ်စုံနှင့် လက်ဝတ်ရတနာ အဆင်သင့်"},o:"client"},
     {t:{en:"Groom's outfit ready",my:"သတို့သား ဝတ်စုံ အဆင်သင့်"},o:"client"},
     {t:{en:"Outfits steamed / pressed the day before",my:"မနက်ဖြန် ဝတ်ဆင်ရန် ရှိဆွဲ / မွတ်ပြီး"},o:"client"},
     {t:{en:"Bouquet & boutonniere",my:"မင်္ဂလာပန်းစည်းနှင့် ရင်ထိုးပန်း"},o:"amore"},
   ]},
-  { id:"hair_makeup", icon:"◎", name:{en:"Hair & makeup",my:"ဆံပင်နှင့် မိတ်ကပ်"}, items:[
+  {id:"hair_makeup",icon:"◎",name:{en:"Hair & makeup",my:"ဆံပင်နှင့် မိတ်ကပ်"},items:[
     {t:{en:"Hair artist booked & call time confirmed",my:"ဆံပင်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး"},o:"amore"},
     {t:{en:"Makeup artist booked & call time confirmed",my:"မိတ်ကပ်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး"},o:"amore"},
     {t:{en:"Trial session completed",my:"စမ်းသပ်ခြင်း ပြီးဆုံးပြီး"},o:"client"},
     {t:{en:"Touch-up kit packed (lipstick, powder, pins)",my:"မိတ်ကပ်ကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း)"},o:"client"},
   ]},
-  { id:"food", icon:"▭", name:{en:"Food & catering",my:"ဧည့်ခံ အစားအသောက်"}, items:[
+  {id:"food",icon:"▭",name:{en:"Food & catering",my:"ဧည့်ခံ အစားအသောက်"},items:[
     {t:{en:"Caterer confirmed (rice, curries, side dishes)",my:"Catering ဝန်ဆောင်မှု အတည်ပြုပြီး (ထမင်း၊ ဟင်းများ)"},o:"amore"},
     {t:{en:"Guest headcount submitted to caterer",my:"ဧည့်သည်အရေအတွက် Catering ဝန်ဆောင်မှုသို့ ပေးပို့ပြီး"},o:"amore"},
     {t:{en:"Serving tables & serving team arranged",my:"ဒယ်ကားများနှင့် ဝန်ဆောင်မှုအဖွဲ့ စီစဉ်ပြီး"},o:"amore"},
@@ -232,29 +196,29 @@ const SECTIONS_DATA = [
     {t:{en:"Catering setup time agreed with monastery",my:"ကျောင်းတိုက်နှင့် ချက်ပြုတ်စတင်ချိန် သဘောတူပြီး"},o:null},
     {t:{en:"Garbage bags & post-meal cleanup assigned",my:"အမှိုက်အိတ်နှင့် ဧည့်ခံပြီးနောက် သန့်ရှင်းရေး တာဝန်ခွဲပြီး"},o:"amore"},
   ]},
-  { id:"print_design", icon:"◉", name:{en:"Print & design",my:"ပရင့်နှင့် ဒီဇိုင်း"}, items:[
+  {id:"print_design",icon:"◉",name:{en:"Print & design",my:"ပရင့်နှင့် ဒီဇိုင်း"},items:[
     {t:{en:"Name board making",my:"နာမည်ဘုတ် ပြုလုပ်ခြင်း"},o:"amore"},
     {t:{en:"Photoboard printing",my:"ဓာတ်ပုံဘုတ် ပရင့်ထုတ်ခြင်း"},o:"amore"},
     {t:{en:"Photos printing",my:"ဓာတ်ပုံများ ပရင့်ထုတ်ခြင်း"},o:"amore"},
   ]},
-  { id:"guests", icon:"▤", name:{en:"Guests & gifts",my:"ဧည့်သည်များနှင့် လက်ဆောင်"}, items:[
+  {id:"guests",icon:"▤",name:{en:"Guests & gifts",my:"ဧည့်သည်များနှင့် လက်ဆောင်"},items:[
     {t:{en:"Guest list finalised",my:"ဧည့်သည်စာရင်း အတည်ပြုပြီး"},o:"client"},
     {t:{en:"Invitations sent (monastery, date, alms time)",my:"ဖိတ်စာ (ကျောင်းတိုက်၊ ရက်၊ မင်္ဂလာဆွမ်းချိန်) ပေးပို့ပြီး"},o:"client"},
     {t:{en:"Guest sign book & pens set up",my:"ဧည့်သည် လက်မှတ်ထိုးစာအုပ်နှင့် ဘောပင် ပြင်ဆင်ပြီး"},o:"amore"},
     {t:{en:"Gift / envelope collection table arranged",my:"လက်ဆောင် / စာအိတ် လက်ခံစားပွဲ စီစဉ်ပြီး"},o:"amore"},
   ]},
-  { id:"helpers", icon:"◁", name:{en:"Helpers on the day",my:"နေ့တွင် ကူညီသူများ"}, items:[
+  {id:"helpers",icon:"◁",name:{en:"Helpers on the day",my:"နေ့တွင် ကူညီသူများ"},items:[
     {t:{en:"Greeter assigned at monastery entrance",my:"ကျောင်းတိုက်ဝင်ပေါက်တွင် ကြိုဆိုသူ သတ်မှတ်ပြီး"},o:"client"},
     {t:{en:"Gift & envelope collection person assigned",my:"လက်ဆောင် / စာအိတ် လက်ခံသူ သတ်မှတ်ပြီး"},o:"client"},
     {t:{en:"Food serving team briefed",my:"ဧည့်ခံ ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး"},o:"amore"},
     {t:{en:"Monk-offering serving team briefed",my:"ဆွမ်းကပ်ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး"},o:"amore"},
   ]},
-  { id:"photo_video", icon:"▣", name:{en:"Photo & video",my:"ဓာတ်ပုံနှင့် ဗီဒီယို"}, items:[
+  {id:"photo_video",icon:"▣",name:{en:"Photo & video",my:"ဓာတ်ပုံနှင့် ဗီဒီယို"},items:[
     {t:{en:"Photographer confirmed & call time set",my:"ဓာတ်ပုံဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး"},o:"amore"},
     {t:{en:"Videographer confirmed & call time set",my:"ဗီဒီယိုဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး"},o:"amore"},
     {t:{en:"Key shots shared (Soon offering, garland exchange, family portraits)",my:"မှတ်တမ်းတင်ရမည့် အဓိကအခိုက်အတန့်များ မျှဝေပြီး"},o:"amore"},
   ]},
-  { id:"logistics", icon:"⚙", name:{en:"Day-of logistics",my:"နေ့ဆိုင်ရာ စီစဉ်မှုများ"}, items:[
+  {id:"logistics",icon:"⚙",name:{en:"Day-of logistics",my:"နေ့ဆိုင်ရာ စီစဉ်မှုများ"},items:[
     {t:{en:"Transport for couple arranged",my:"သတို့တွဲ သယ်ယူပို့ဆောင်ရေး စီစဉ်ပြီး"},o:"client"},
     {t:{en:"Arrival time at monastery confirmed",my:"ကျောင်းတိုက် ရောက်ရမည့်အချိန် အတည်ပြုပြီး"},o:"client"},
     {t:{en:"Monastery rules reviewed (decor, noise, access)",my:"ကျောင်းတိုက် စည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ ဆူညံမှု)"},o:"client"},
@@ -262,22 +226,52 @@ const SECTIONS_DATA = [
   ]},
 ];
 
+// ─── STATE ──────────────────────────────────────────────────────────────────
 let currentLang='en', statusFilter='all', ownerFilter='all';
 let checkedState={}, naState={}, ownerState={}, labelState={}, collapsed={}, customItems={};
 
-SECTIONS_DATA.forEach(s=>{
-  checkedState[s.id]=s.items.map(()=>false);
-  naState[s.id]=s.items.map(()=>false);
-  ownerState[s.id]=s.items.map(i=>i.o||null);
-  labelState[s.id]=s.items.map(i=>({en:i.t.en,my:i.t.my}));
-  collapsed[s.id]=false;
-  customItems[s.id]=[];
-});
+function initState(){
+  SECTIONS_DATA.forEach(s=>{
+    checkedState[s.id] = s.items.map(()=>false);
+    naState[s.id]      = s.items.map(()=>false);
+    ownerState[s.id]   = s.items.map(i=>i.o||null);
+    labelState[s.id]   = s.items.map(i=>({en:i.t.en,my:i.t.my}));
+    collapsed[s.id]    = false;
+    customItems[s.id]  = [];
+  });
+}
+initState();
 
+// ─── SNAPSHOT RESTORE (injected by downloadHTML) ────────────────────────────
+if(typeof __SNAPSHOT__!=='undefined'){
+  const S=__SNAPSHOT__;
+  currentLang=S.lang; statusFilter=S.statusFilter; ownerFilter=S.ownerFilter;
+  // Deep copy to avoid reference issues
+  SECTIONS_DATA.forEach(s=>{
+    if(S.checkedState[s.id]) checkedState[s.id]=S.checkedState[s.id].slice();
+    if(S.naState[s.id])      naState[s.id]=S.naState[s.id].slice();
+    if(S.ownerState[s.id])   ownerState[s.id]=S.ownerState[s.id].slice();
+    if(S.labelState[s.id])   labelState[s.id]=S.labelState[s.id].map(x=>({...x}));
+    if(S.customItems[s.id])  customItems[s.id]=S.customItems[s.id].map(x=>({...x}));
+    if(S.collapsed)          collapsed[s.id]=S.collapsed[s.id];
+  });
+  // Restore meta inputs after DOM ready
+  window.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('meta-couple').value    = S.meta.couple    ||'';
+    document.getElementById('meta-date').value      = S.meta.date      ||'';
+    document.getElementById('meta-monastery').value = S.meta.monastery ||'';
+    document.getElementById('meta-soon').value      = S.meta.soon      ||'';
+    setLang(S.lang);
+    setFilter('status',S.statusFilter);
+    setFilter('owner',S.ownerFilter);
+  });
+}
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────
 function totalItems(id){ return labelState[id].length+customItems[id].length; }
 function getLabel(id,i){
   const t=labelState[id].length;
-  return i<t ? (labelState[id][i][currentLang]||labelState[id][i].en) : (customItems[id][i-t][currentLang]||customItems[id][i-t].en);
+  return i<t?(labelState[id][i][currentLang]||labelState[id][i].en):(customItems[id][i-t][currentLang]||customItems[id][i-t].en);
 }
 function setLabel(id,i,text){
   const t=labelState[id].length;
@@ -286,8 +280,8 @@ function setLabel(id,i,text){
 }
 
 function setFilter(type,val){
-  if(type==='status'){ statusFilter=val; ['all','pending','done','na'].forEach(x=>{ document.getElementById('filter-'+x).className='filter-btn'+(x===val?' active':''); }); }
-  else { ownerFilter=val; ['all','amore','client','unset'].forEach(x=>{ const el=document.getElementById('filter-owner-'+x); let c='filter-btn'; if(x===val) c+=x==='amore'?' active-amore':x==='client'?' active-client':' active'; el.className=c; }); }
+  if(type==='status'){ statusFilter=val; ['all','pending','done','na'].forEach(x=>{ const el=document.getElementById('filter-'+x); if(el) el.className='filter-btn'+(x===val?' active':''); }); }
+  else{ ownerFilter=val; ['all','amore','client','unset'].forEach(x=>{ const el=document.getElementById('filter-owner-'+x); if(!el)return; let c='filter-btn'; if(x===val) c+=x==='amore'?' active-amore':x==='client'?' active-client':' active'; el.className=c; }); }
   applyFilter();
 }
 function itemVisible(id,i){
@@ -330,6 +324,7 @@ function deleteItem(id,i){
   renderSections(); updateProgress();
 }
 
+// ─── RENDER ─────────────────────────────────────────────────────────────────
 function renderSections(){
   const container=document.getElementById('sections'); container.innerHTML='';
   const L=LANG[currentLang];
@@ -340,33 +335,25 @@ function renderSections(){
     hdr.innerHTML=`<span class="section-icon">${sec.icon}</span><span class="section-name">${sec.name[currentLang]||sec.name.en}</span><span class="section-count" id="count-${sec.id}">${cc}/${n-nc}${nc?` <span style="color:#C8975A;font-size:11px">· ${nc} N/A</span>`:''}</span><span class="section-toggle">${collapsed[sec.id]?'▸':'▾'}</span>`;
     hdr.onclick=()=>{ collapsed[sec.id]=!collapsed[sec.id]; renderSections(); };
     const body=document.createElement('div'); body.className='section-body'+(collapsed[sec.id]?' collapsed':'');
-
     for(let i=0;i<n;i++){
       const label=getLabel(sec.id,i),ck=checkedState[sec.id][i],na=naState[sec.id][i],ow=ownerState[sec.id][i];
       const row=document.createElement('div'); row.className='item-row'; row.setAttribute('data-idx',i);
       const cbId=`cb-${sec.id}-${i}`;
-      const lc='item-label'+(na?' na':ck?' checked':'');
-      const oc='owner-btn'+(ow==='amore'?' amore':ow==='client'?' client':'');
-      const ot=ow==='amore'?L.amore_label:ow==='client'?L.client_label:'—';
-
       const cb=document.createElement('input'); cb.type='checkbox'; cb.id=cbId; cb.checked=ck&&!na; cb.disabled=na;
-      const lbl=document.createElement('label'); lbl.className=lc; lbl.setAttribute('for',cbId); lbl.setAttribute('contenteditable','true'); lbl.setAttribute('data-placeholder',L.edit_placeholder); lbl.setAttribute('spellcheck','false'); lbl.textContent=label;
-      const ob=document.createElement('button'); ob.className=oc; ob.setAttribute('data-sec',sec.id); ob.setAttribute('data-idx',i); ob.textContent=ot;
+      const lbl=document.createElement('label'); lbl.className='item-label'+(na?' na':ck?' checked':''); lbl.setAttribute('for',cbId); lbl.setAttribute('contenteditable','true'); lbl.setAttribute('data-placeholder',L.edit_placeholder); lbl.setAttribute('spellcheck','false'); lbl.textContent=label;
+      const ob=document.createElement('button'); ob.className='owner-btn'+(ow==='amore'?' amore':ow==='client'?' client':''); ob.setAttribute('data-sec',sec.id); ob.setAttribute('data-idx',i); ob.textContent=ow==='amore'?L.amore_label:ow==='client'?L.client_label:'—';
       const nb=document.createElement('button'); nb.className='na-btn'+(na?' active':''); nb.textContent=L.na_label;
       const db=document.createElement('button'); db.className='del-btn'; db.textContent='×'; db.title='Remove item';
-
       cb.onchange=function(){ if(naState[sec.id][i])return; checkedState[sec.id][i]=this.checked; lbl.className='item-label'+(this.checked?' checked':''); refreshCount(sec.id); updateProgress(); applyFilter(); };
-      lbl.oninput=function(){ setLabel(sec.id,i,this.textContent.trim()); };
+      lbl.oninput=function(){ setLabel(sec.id,i,this.textContent); };
       lbl.onkeydown=function(e){ if(e.key==='Enter'){e.preventDefault();this.blur();} };
       lbl.onclick=function(e){ e.preventDefault(); this.focus(); };
       ob.onclick=e=>{ e.stopPropagation(); cycleOwner(sec.id,i); };
       nb.onclick=()=>{ naState[sec.id][i]=!naState[sec.id][i]; if(naState[sec.id][i]) checkedState[sec.id][i]=false; renderSections(); updateProgress(); };
       db.onclick=e=>{ e.stopPropagation(); deleteItem(sec.id,i); };
-
       row.appendChild(cb); row.appendChild(lbl); row.appendChild(ob); row.appendChild(nb); row.appendChild(db);
       body.appendChild(row);
     }
-
     const ar=document.createElement('div'); ar.className='add-item';
     ar.innerHTML=`<input class="add-input" placeholder="${L.add_placeholder}"/><button class="add-btn-el">${L.add_btn}</button>`;
     const inp=ar.querySelector('input'),btn=ar.querySelector('button');
@@ -394,122 +381,88 @@ function expandAll(){ SECTIONS_DATA.forEach(s=>collapsed[s.id]=false); renderSec
 function collapseAll(){ SECTIONS_DATA.forEach(s=>collapsed[s.id]=true); renderSections(); }
 function uncheckAll(){ SECTIONS_DATA.forEach(s=>{ checkedState[s.id]=checkedState[s.id].map(()=>false); naState[s.id]=naState[s.id].map(()=>false); }); renderSections(); }
 
-/* ── HTML DOWNLOAD ─────────────────────────────────────────── */
+// ─── HTML DOWNLOAD ───────────────────────────────────────────────────────────
+// Collect current label text from contenteditable DOM before serializing,
+// since oninput may not fire for every character in all browsers.
+function syncLabelsFromDOM(){
+  SECTIONS_DATA.forEach(sec=>{
+    const n=totalItems(sec.id);
+    for(let i=0;i<n;i++){
+      const lbl=document.querySelector(`[data-id="${sec.id}"] .item-row[data-idx="${i}"] .item-label`);
+      if(lbl) setLabel(sec.id,i,lbl.textContent);
+    }
+  });
+}
+
 function downloadHTML(){
-  // Serialize full state into the script block of a standalone HTML snapshot
-  const metaVals = {
+  syncLabelsFromDOM();
+  const meta={
     couple:   document.getElementById('meta-couple').value,
     date:     document.getElementById('meta-date').value,
     monastery:document.getElementById('meta-monastery').value,
     soon:     document.getElementById('meta-soon').value,
   };
-
-  const snapshot = {
-    lang: currentLang,
-    statusFilter, ownerFilter,
-    meta: metaVals,
-    checkedState, naState, ownerState, labelState, customItems, collapsed,
+  // Serialize all JS state — NOT the DOM
+  const snapshot={
+    lang:currentLang, statusFilter, ownerFilter, meta,
+    checkedState:  JSON.parse(JSON.stringify(checkedState)),
+    naState:       JSON.parse(JSON.stringify(naState)),
+    ownerState:    JSON.parse(JSON.stringify(ownerState)),
+    labelState:    JSON.parse(JSON.stringify(labelState)),
+    customItems:   JSON.parse(JSON.stringify(customItems)),
+    collapsed:     JSON.parse(JSON.stringify(collapsed)),
   };
-
-  // Get the full page HTML and inject the snapshot
-  const html = document.documentElement.outerHTML;
-  const marker = '/* __SNAPSHOT__ */';
-  const inject = `\nconst __SNAPSHOT__ = ${JSON.stringify(snapshot)};\n`;
-  // We'll embed the snapshot and a loader right before </body>
-  const loaderScript = `
-<script>
-(function(){
-  const S = ${JSON.stringify(snapshot)};
-  // Restore meta
-  window.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('meta-couple').value    = S.meta.couple    || '';
-    document.getElementById('meta-date').value      = S.meta.date      || '';
-    document.getElementById('meta-monastery').value = S.meta.monastery || '';
-    document.getElementById('meta-soon').value      = S.meta.soon      || '';
-    // Restore deep state
-    Object.assign(checkedState, S.checkedState);
-    Object.assign(naState,      S.naState);
-    Object.assign(ownerState,   S.ownerState);
-    Object.assign(labelState,   S.labelState);
-    Object.assign(customItems,  S.customItems);
-    Object.assign(collapsed,    S.collapsed);
-    currentLang    = S.lang;
-    statusFilter   = S.statusFilter;
-    ownerFilter    = S.ownerFilter;
-    setLang(S.lang);
-    // Restore filter buttons
-    setFilter('status', S.statusFilter);
-    setFilter('owner',  S.ownerFilter);
-  });
-})();
-<\/script>`;
-
-  const finalHtml = html.replace('</body>', loaderScript + '\n</body>');
-  const blob = new Blob([finalHtml], {type:'text/html'});
-  const couple = metaVals.couple.replace(/[^a-zA-Z0-9]/g,'_') || 'checklist';
-  const date   = metaVals.date || new Date().toISOString().slice(0,10);
-  triggerDownload(blob, `wedding_checklist_${couple}_${date}.html`);
+  // Build the script block that this file uses, then inject snapshot as a
+  // variable declaration right at the top so the restore block runs on load.
+  const snapshotDecl = `const __SNAPSHOT__ = ${JSON.stringify(snapshot)};\n`;
+  // Get the current script content and prepend the snapshot declaration
+  const scripts = document.querySelectorAll('script:not([src])');
+  let mainScript = '';
+  scripts.forEach(s=>{ if(s.textContent.includes('PAGE_TEMPLATE')) mainScript=s.textContent; });
+  const injectedScript = snapshotDecl + mainScript;
+  // Replace %%MAIN_SCRIPT%% placeholder in the template with injected script
+  const finalHTML = PAGE_TEMPLATE.replace('%%MAIN_SCRIPT%%', injectedScript);
+  const couple=(meta.couple||'checklist').replace(/[^a-zA-Z0-9]/g,'_');
+  const date=meta.date||new Date().toISOString().slice(0,10);
+  triggerDownload(new Blob([finalHTML],{type:'text/html;charset=utf-8'}), `wedding_checklist_${couple}_${date}.html`);
 }
 
-/* ── IMAGE DOWNLOAD ────────────────────────────────────────── */
+// ─── IMAGE DOWNLOAD ──────────────────────────────────────────────────────────
 async function downloadImage(){
-  // Expand all sections and temporarily show all items for the capture
-  const prevCollapsed = {...collapsed};
-  const prevStatus = statusFilter, prevOwner = ownerFilter;
-
+  const prevCollapsed={...collapsed};
+  const prevStatus=statusFilter, prevOwner=ownerFilter;
   SECTIONS_DATA.forEach(s=>collapsed[s.id]=false);
   statusFilter='all'; ownerFilter='all';
   renderSections();
-
-  // Show overlay
-  const overlay = document.getElementById('img-overlay');
-  const msg     = document.getElementById('overlay-msg');
-  overlay.classList.add('show');
-  msg.textContent = 'Preparing layout…';
-
-  await new Promise(r=>setTimeout(r,120));
-  msg.textContent = 'Capturing image…';
-
-  const app = document.getElementById('main-app');
-  try {
-    const canvas = await html2canvas(app, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#f7f5f2',
-      scrollY: -window.scrollY,
-      windowWidth: app.scrollWidth + 40,
-      onclone: function(doc){
-        // Hide interactive-only elements in the clone
-        doc.querySelectorAll('.footer-actions,.filter-row,.add-item,.del-btn,.na-btn,.lang-toggle').forEach(el=>{ el.style.display='none'; });
-        doc.querySelectorAll('.section-body.collapsed').forEach(el=>{ el.style.display='block'; });
-        doc.querySelectorAll('.item-row.hidden').forEach(el=>{ el.style.display='flex'; });
+  const overlay=document.getElementById('img-overlay'),msg=document.getElementById('overlay-msg');
+  overlay.classList.add('show'); msg.textContent='Preparing layout…';
+  await new Promise(r=>setTimeout(r,150));
+  msg.textContent='Capturing image…';
+  const app=document.getElementById('main-app');
+  try{
+    const canvas=await html2canvas(app,{scale:2,useCORS:true,backgroundColor:'#f7f5f2',scrollY:-window.scrollY,
+      onclone:function(doc){
+        doc.querySelectorAll('.footer-actions,.filter-row,.add-item,.del-btn,.na-btn,.lang-toggle').forEach(el=>el.style.display='none');
+        doc.querySelectorAll('.section-body.collapsed').forEach(el=>el.style.display='block');
+        doc.querySelectorAll('.item-row.hidden').forEach(el=>el.style.display='flex');
         doc.querySelectorAll('.item-label').forEach(el=>{ el.style.background='none'; el.style.boxShadow='none'; });
       }
     });
-    msg.textContent = 'Saving…';
+    msg.textContent='Saving…';
     canvas.toBlob(blob=>{
-      const couple = (document.getElementById('meta-couple').value||'checklist').replace(/[^a-zA-Z0-9]/g,'_');
-      const date   = document.getElementById('meta-date').value || new Date().toISOString().slice(0,10);
-      triggerDownload(blob, `wedding_checklist_${couple}_${date}.png`);
-    }, 'image/png');
-  } catch(e){
-    alert('Image generation failed: ' + e.message);
-  }
-
-  // Restore state
-  Object.assign(collapsed, prevCollapsed);
-  statusFilter=prevStatus; ownerFilter=prevOwner;
-  renderSections();
-  overlay.classList.remove('show');
+      const couple=(document.getElementById('meta-couple').value||'checklist').replace(/[^a-zA-Z0-9]/g,'_');
+      const date=document.getElementById('meta-date').value||new Date().toISOString().slice(0,10);
+      triggerDownload(blob,`wedding_checklist_${couple}_${date}.png`);
+    },'image/png');
+  } catch(e){ alert('Image generation failed: '+e.message); }
+  Object.assign(collapsed,prevCollapsed); statusFilter=prevStatus; ownerFilter=prevOwner;
+  renderSections(); overlay.classList.remove('show');
 }
 
-function triggerDownload(blob, filename){
-  const url = URL.createObjectURL(blob);
-  const a   = document.createElement('a');
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url), 5000);
+function triggerDownload(blob,filename){
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+  document.body.removeChild(a); setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
 
 renderSections();
