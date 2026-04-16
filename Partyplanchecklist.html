@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Japan Wedding Reception Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f5f2; color: #1a1a1a; padding: 2rem 1rem; }
+  .app { max-width: 700px; margin: 0 auto; }
+  .top-bar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; gap: 12px; }
+  .top-bar-text h1 { font-size: 19px; font-weight: 700; margin-bottom: 3px; }
+  .top-bar-text .subtitle { font-size: 12px; color: #999; }
+  .lang-toggle { display: flex; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+  .lang-btn { font-size: 12px; padding: 6px 13px; background: #fff; color: #888; cursor: pointer; border: none; outline: none; transition: background 0.15s, color 0.15s; }
+  .lang-btn.active { background: #B07D3A; color: #fff; }
+  .event-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.5rem; }
+  .meta-field { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
+  .meta-input { font-size: 13px; padding: 7px 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a1a; outline: none; }
+  .meta-input:focus { border-color: #B07D3A; }
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-bar { height: 4px; background: #e5e5e5; border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
+  .progress-fill { height: 100%; border-radius: 99px; background: #B07D3A; transition: width 0.3s ease; }
+  .progress-text { font-size: 12px; color: #999; }
+  .phase-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #B07D3A; margin: 1.4rem 0 6px 2px; }
+  .section { margin-bottom: 6px; border: 1px solid #e8e5e0; border-radius: 12px; overflow: hidden; background: #fff; }
+  .section-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #faf8f5; cursor: pointer; user-select: none; }
+  .section-icon { font-size: 14px; width: 20px; text-align: center; }
+  .section-name { font-size: 13px; font-weight: 600; color: #1a1a1a; flex: 1; }
+  .section-count { font-size: 12px; color: #bbb; }
+  .section-toggle { font-size: 10px; color: #ccc; }
+  .section-body.collapsed { display: none; }
+  .item-row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 14px; border-bottom: 1px solid #f2ede8; }
+  .item-row:last-of-type { border-bottom: none; }
+  .item-row input[type=checkbox] { width: 14px; height: 14px; accent-color: #B07D3A; cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+  .item-label { font-size: 13px; color: #1a1a1a; flex: 1; line-height: 1.6; cursor: pointer; }
+  .item-label.checked { color: #c0bbb4; text-decoration: line-through; }
+  .add-item { display: flex; gap: 6px; padding: 7px 14px; border-top: 1px solid #f0ede8; }
+  .add-input { flex: 1; font-size: 12px; padding: 5px 9px; border: 1px solid #ddd; border-radius: 7px; background: #fafafa; color: #1a1a1a; outline: none; }
+  .add-input:focus { border-color: #B07D3A; background: #fff; }
+  .add-btn { font-size: 12px; padding: 5px 10px; border: 1px solid #ddd; border-radius: 7px; background: #fff; color: #666; cursor: pointer; }
+  .add-btn:hover { background: #f0f0f0; }
+  .footer-actions { display: flex; gap: 8px; margin-top: 1.25rem; flex-wrap: wrap; }
+  .footer-btn { font-size: 12px; padding: 7px 13px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #555; cursor: pointer; }
+  .footer-btn:hover { background: #f5f3f0; }
+  .footer-btn.primary { background: #B07D3A; color: #fff; border-color: #B07D3A; }
+  .footer-btn.primary:hover { background: #8C6230; }
+  @media print {
+    body { background: #fff; padding: 1rem; }
+    .footer-actions, .add-item, .lang-toggle { display: none; }
+    .section-body.collapsed { display: block !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top-bar">
+    <div class="top-bar-text">
+      <h1 id="title-text">Japan Wedding Reception Checklist</h1>
+      <p class="subtitle" id="subtitle-text">Venue party in Japan — reusable master template</p>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-my" onclick="setLang('my')">မြန်မာ</button>
+    </div>
+  </div>
+
+  <div class="event-meta">
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_couple">Couple</span>
+      <input class="meta-input" placeholder="e.g. Ma Aye & Ko Kyaw" />
+    </div>
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_date">Wedding Date</span>
+      <input class="meta-input" type="date" />
+    </div>
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_venue">Venue</span>
+      <input class="meta-input" data-key-ph="ph_venue" placeholder="Venue name & location" />
+    </div>
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_time">Reception Start Time</span>
+      <input class="meta-input" data-key-ph="ph_time" placeholder="e.g. 6:00 PM" />
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-text" id="progress-text"></div>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="footer-actions">
+    <button class="footer-btn" onclick="expandAll()" data-key="btn_expand">Expand all</button>
+    <button class="footer-btn" onclick="collapseAll()" data-key="btn_collapse">Collapse all</button>
+    <button class="footer-btn" onclick="uncheckAll()" data-key="btn_reset">Reset all</button>
+    <button class="footer-btn primary" onclick="window.print()" data-key="btn_print">Print / Save PDF</button>
+  </div>
+</div>
+
+<script>
+const LANG = {
+  en: {
+    title:"Japan Wedding Reception Checklist", subtitle:"Venue party in Japan — reusable master template",
+    meta_couple:"Couple", meta_date:"Wedding Date", meta_venue:"Venue", meta_time:"Reception Start Time",
+    ph_venue:"Venue name & location", ph_time:"e.g. 6:00 PM",
+    progress:(c,t)=>`${c} of ${t} items checked`,
+    add_placeholder:"Add custom item...", add_btn:"+ Add",
+    btn_expand:"Expand all", btn_collapse:"Collapse all", btn_reset:"Reset all", btn_print:"Print / Save PDF",
+  },
+  my: {
+    title:"ဂျပန် မင်္ဂလာဆောင် ပွဲလမ်းသဘင် စာရင်း", subtitle:"ဂျပန်ရှိ ဧည့်ခံပွဲ — ကြိမ်ဖန်များစွာ အသုံးပြုနိုင်သော ပုံစံ",
+    meta_couple:"သတို့သား / သတို့သမီး", meta_date:"မင်္ဂလာဆောင် နေ့", meta_venue:"ဧည့်ခံရာ နေရာ", meta_time:"ပွဲစတင်ချိန်",
+    ph_venue:"နေရာအမည်နှင့် တည်နေရာ", ph_time:"ဥပမာ ညနေ ၆ နာရီ",
+    progress:(c,t)=>`စုစုပေါင်း ${t} ခုအနက် ${c} ခု ပြီးစီးသည်`,
+    add_placeholder:"အကြောင်းအရာ ထပ်ထည့်ရန်...", add_btn:"+ ထည့်",
+    btn_expand:"အားလုံး ဖွင့်", btn_collapse:"အားလုံး ပိတ်", btn_reset:"အားလုံး ပြန်သိမ်း", btn_print:"ပရင့်ထုတ် / PDF သိမ်း",
+  }
+};
+
+const PHASE_LABELS = {
+  en:{1:"Phase 1 — Early Planning (3+ months before)",2:"Phase 2 — Mid Planning (4–8 weeks before)",3:"Phase 3 — Pre-Wedding Rehearsal (2–3 weeks before)",4:"Phase 4 — Final Week (1 week before)",5:"Phase 5 — Items & Roles Ready (day before)",6:"Phase 6 — Wedding Day",7:"Phase 7 — After the Wedding"},
+  my:{1:"အဆင့် ၁ — ကြိုတင်စီမံခြင်း (လ ၃+ ကြိုတင်)",2:"အဆင့် ၂ — အလယ်ပိုင်း စီမံခြင်း (၄–၈ ပတ် ကြိုတင်)",3:"အဆင့် ၃ — ကြိုတင် ကျင့်ဆင်ခြင်း (၂–၃ ပတ် ကြိုတင်)",4:"အဆင့် ၄ — နောက်ဆုံးအပတ် (တစ်ပတ် ကြိုတင်)",5:"အဆင့် ၅ — ပစ္စည်းနှင့် တာဝန်များ (တစ်ရက် ကြိုတင်)",6:"အဆင့် ၆ — မင်္ဂလာဆောင်နေ့",7:"အဆင့် ၇ — မင်္ဂလာဆောင်ပြီးနောက်"}
+};
+
+const RAW = [
+  // ── PHASE 1 ─────────────────────────────────────────────
+  { id:"budget_venue", phase:1, icon:"🏯",
+    name:{en:"Venue & budget", my:"နေရာနှင့် ဘတ်ဂျက်"},
+    items:{
+      en:["Budget set & total estimated","Venue shortlisted and visited in person","Venue confirmed & contract signed","Deposit paid","Floor plan / room layout agreed (tables, stage, dance floor)","Venue rules confirmed (décor, candles, confetti, corkage)","Parking & guest access details noted","Venue setup and teardown times confirmed","Couple planning sheet / shared document created"],
+      my:["ဘတ်ဂျက် သတ်မှတ်ပြီး၊ စုစုပေါင်းခန့်မှန်းချက် ပြုလုပ်ပြီး","နေရာများ ရွေးချယ်ပြီး ကိုယ်တိုင်သွားရောက်ကြည့်ရှုပြီး","နေရာ အတည်ပြုပြီး၊ စာချုပ်လက်မှတ်ထိုးပြီး","စရံကြေး ပေးချေပြီး","ကြမ်းပြင်စီမံချက် (စားပွဲ၊ မင်္ဂလာဆောင်ခုံ၊ ကခုန်မြေ) သဘောတူပြီး","နေရာစည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ မီးပူ၊ မှတ်ပုံတင်ကြေး)","ကားရပ်နားရာနှင့် ဧည့်သည်ဝင်ရောက်မည့်လမ်းကြောင်း မှတ်သားပြီး","ပြင်ဆင်ချိန်နှင့် ဖြုတ်သိမ်းချိန် အတည်ပြုပြီး","တွဲဖက်စီမံချက်ဇယား / မျှဝေ document ဖန်တီးပြီး"]
+    }
+  },
+  { id:"people_services", phase:1, icon:"◁",
+    name:{en:"People & services", my:"ဝန်ဆောင်မှုများ မှာကြားခြင်း"},
+    items:{
+      en:["MC confirmed & briefed (Japanese / English / Myanmar)","MUA (Makeup Artist) confirmed","Hair stylist confirmed","Photographer & videographer confirmed","Music / DJ / live band confirmed","Florist confirmed","Caterer or venue F&B package confirmed","Emergency contact list printed (venue, caterer, photographer, MC)"],
+      my:["MC အတည်ပြုပြီး ညှိနှိုင်းပြီး (ဂျပန် / အင်္ဂလိပ် / မြန်မာ)","မျက်နှာသစ်ဆရာ (MUA) အတည်ပြုပြီး","ဆံပင်ဆရာ အတည်ပြုပြီး","ဓာတ်ပုံဆရာနှင့် ဗီဒီယိုဆရာ အတည်ပြုပြီး","တေးဂီတ / DJ / ဘင်ဒ် အတည်ပြုပြီး","ပန်းဆိုင် အတည်ပြုပြီး","ကြက်သားကောင်တာ သို့မဟုတ် နေရာ F&B ပက်ကေ့ အတည်ပြုပြီး","အရေးပေါ် ဆက်သွယ်ရမည့် စာရင်း ပရင့်ထုတ်ပြီး"]
+    }
+  },
+  { id:"dress_rings", phase:1, icon:"◈",
+    name:{en:"Dress & rings", my:"ဝတ်စုံနှင့် လက်စွပ်"},
+    items:{
+      en:["Dress 1 shortlisted & trial booked","Dress 1 confirmed & fitted","Dress 2 confirmed & fitted (if two dresses)","Dress accessories finalised (veil, shoes, jewellery)","Suit confirmed & fitted","Bridesmaid / groomsman attire arranged","Wedding rings ordered","Rings picked up & stored safely"],
+      my:["ဒရက်စ် ၁ ရွေးချယ်ပြီး၊ ဖြတ်ကြည့်ချိန်း မှာကြားပြီး","ဒရက်စ် ၁ အတည်ပြုပြီး၊ ဖြတ်ပြီး","ဒရက်စ် ၂ အတည်ပြုပြီး၊ ဖြတ်ပြီး (ဒရက်စ် နှစ်ထည် ဝတ်မည်ဆိုပါက)","ဒရက်စ်ပစ္စည်းများ (မျက်နှာဖုံး၊ ဖိနပ်၊ လက်ဝတ်ရတနာ) အတည်ပြုပြီး","ဆူး အတည်ပြုပြီး၊ ဖြတ်ပြီး","ဝတ်ကြွေနှင့် ဝတ်ကြွေမျိုး ဝတ်ဆင်မှု စီစဉ်ပြီး","မင်္ဂလာဆောင်လက်စွပ်များ မှာပြီး","လက်စွပ်များ ထုတ်ယူပြီး၊ လုံခြုံစွာ သိမ်းဆည်းပြီး"]
+    }
+  },
+  { id:"guests_invitations", phase:1, icon:"▤",
+    name:{en:"Guests & invitations", my:"ဧည့်သည်များနှင့် ဖိတ်ကြားခြင်း"},
+    items:{
+      en:["Guest list registered","Invitation design confirmed","Invitations sent (venue address, parking, dress code)","RSVPs collected & final headcount submitted to caterer","Seating plan finalised & shared with venue","International guest travel & accommodation briefed"],
+      my:["ဧည့်သည်စာရင်း မှတ်ပုံတင်ပြီး","ဖိတ်စာ ဒီဇိုင်း အတည်ပြုပြီး","ဖိတ်စာများ ပေးပို့ပြီး (နေရာလိပ်စာ၊ ကားရပ်နားရာ၊ ဝတ်ဆင်မှုကုဒ်)","တက်ရောက်မည့်သူ အတည်ပြုချက် ရယူပြီး၊ ဧည့်သည်အရေအတွက် ပေးပို့ပြီး","ထိုင်ခုံချပ်ဆိုင်ရာ နောက်ဆုံးပုံစံ ပြင်ဆင်ပြီး နေရာသို့ ပေးပို့ပြီး","နိုင်ငံတကာ ဧည့်သည်များ ခရီးနှင့် တည်းခိုမှု ညှိနှိုင်းပြီး"]
+    }
+  },
+  { id:"honeymoon", phase:1, icon:"✈",
+    name:{en:"Honeymoon", my:"ပျားရည်တစ်လ ခရီး"},
+    items:{
+      en:["Honeymoon destination & dates decided","Hotel & flights booked"],
+      my:["ပျားရည်တစ်လ ခရီးသွားမည့်နေရာနှင့် ရက်စွဲ ဆုံးဖြတ်ပြီး","ဟိုတယ်နှင့် လေယာဉ်လက်မှတ် မှာပြီး"]
+    }
+  },
+
+  // ── PHASE 2 ─────────────────────────────────────────────
+  { id:"catering", phase:2, icon:"🍱",
+    name:{en:"Catering & drinks", my:"ဧည့်ခံ အစားအသောက်နှင့် အဖျော်ယမကာ"},
+    items:{
+      en:["Food menu style decided (course dinner / buffet / bento)","Final guest headcount submitted to catering team","Dietary requirements (vegetarian, halal, allergies) communicated","Welcome drinks / cocktail hour arranged","Open bar or drink packages confirmed","Wedding cake ordered & delivery time set","Late-night snacks or send-off bites arranged (if needed)"],
+      my:["မီနူးပုံစံ ဆုံးဖြတ်ပြီး (ကောက်ကြောင်းဒိုင်နာ / ဘတ်ဖေး / ဘင်တို)","ဧည့်သည် အရေအတွက် နောက်ဆုံးစာရင်း ဧည့်ခံအဖွဲ့သို့ ပေးပို့ပြီး","အစားအသောက်ကန့်သတ်ချက်များ (သက်သတ်လွတ်၊ ဟာလာ၊ ဓာတ်မတည့်မှု) အသိပေးပြီး","ကြိုဆိုဖျော်ယမကာ / ကော့တေးနာရီ စီစဉ်ပြီး","အဖွင့်ဘား သို့မဟုတ် အဖျော်ယမကာ ပက်ကေ့ အတည်ပြုပြီး","မင်္ဂလာကိတ်မုန့် မှာပြီး၊ ပို့ဆောင်ချိန် သတ်မှတ်ပြီး","ညနောက်ပိုင်း သရေစာ စီစဉ်ပြီး (လိုအပ်ပါက)"]
+    }
+  },
+  { id:"decor", phase:2, icon:"❀",
+    name:{en:"Décor & flowers", my:"အလှဆင်ခြင်းနှင့် ပန်းများ"},
+    items:{
+      en:["Overall theme & colour palette confirmed","Decoration plan confirmed","Welcome space / backdrop / photo wall prepared","Flower bouquet & venue florals confirmed","Bithek (traditional ceremony) booked if applicable","Cake topper / figurines arranged","Candles or lighting hire confirmed with venue","Guest favours ordered & labelled"],
+      my:["ဓမ္မဓိဋ္ဌာန်နှင့် အရောင်ပုံစံ အတည်ပြုပြီး","အလှဆင်ခြင်းအစီအစဉ် အတည်ပြုပြီး","ကြိုဆိုနေရာ / နောက်ခံ / ဓာတ်ပုံနံရံ ပြင်ဆင်ပြီး","ပန်းထုပ်နှင့် နေရာ ပန်းချီများ အတည်ပြုပြီး","ဗိဿက် (ထုံးတမ်းအခမ်းအနား) မှာကြားပြီး (ရှိပါက)","ကိတ်မုန့်ထိပ် / ရုပ်ပြင်ထည်များ စီစဉ်ပြီး","မီးပူများ သို့မဟုတ် အလင်းရောင်ငှားရမ်းမှု နေရာနှင့် အတည်ပြုပြီး","ဧည့်သည်လက်ဆောင်များ မှာကြားပြီး၊ တံဆိပ်ကပ်ပြီး"]
+    }
+  },
+  { id:"paper_print", phase:2, icon:"▭",
+    name:{en:"Paper & print items", my:"စာရွက်နှင့် ပုံနှိပ်ပစ္စည်းများ"},
+    items:{
+      en:["Photoboards printed","Name plates / place cards ordered","Seating chart ordered","Menu cards / ceremony programmes printed","Return gifts (hikidemo) decided & ordered","Gift bag / packaging decided","Game winner gifts bought"],
+      my:["ဓာတ်ပုံပြားများ ပရင့်ထုတ်ပြီး","နာမည်ကတ် / ထိုင်ခုံကတ်များ မှာပြီး","ထိုင်ခုံချပ်ဆိုင်ရာ ဇယား မှာပြီး","မီနူးကတ် / ပွဲအစီအစဉ်များ ပရင့်ထုတ်ပြီး","ပြန်ပေးလက်ဆောင် (ဟိကိဒေမို) ဆုံးဖြတ်ပြီး မှာပြီး","လက်ဆောင်အိတ် / ထုပ်ပိုးမှု ဆုံးဖြတ်ပြီး","ဂိမ်းနိုင်သူ ဆုများ ဝယ်ပြီး"]
+    }
+  },
+  { id:"mua_trial", phase:2, icon:"◎",
+    name:{en:"Hair & makeup", my:"ဆံပင် / မျက်နှာသစ်"},
+    items:{
+      en:["Hair stylist & MUA arrival times confirmed","Trial session completed & look approved","Getting-ready venue / hotel room arranged","Touch-up kit packed (lipstick, powder, pins, blotting paper)","Outfits steamed or pressed the day before","Emergency kit packed (safety pins, double-sided tape, spare buttons)"],
+      my:["ဆံပင်ဆရာနှင့် MUA ရောက်ရမည့်အချိန် အတည်ပြုပြီး","စမ်းသပ်ချိန်း ပြီးဆုံးပြီး၊ အသွင်အပြင် သဘောတူပြီး","ပြင်ဆင်မည့်နေရာ / ဟိုတယ်အခန်း စီစဉ်ပြီး","ဆေးကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း၊ ဘလော့တင်ပေပါ)","မနက်ဖြန် ဝတ်ဆင်ရန် ဝတ်စုံ ရှိဆွဲ / မွတ်ပြီး","အရေးပေါ်ကိရိယာများ ထုပ်ပြီး (အသေချာပိတ်မြောင်ကင်း၊ တိပ်၊ ခလုတ်အပိုများ)"]
+    }
+  },
+
+  // ── PHASE 3 ─────────────────────────────────────────────
+  { id:"rehearsal", phase:3, icon:"▤",
+    name:{en:"Pre-wedding rehearsal", my:"ကြိုတင် ကျင့်ဆင်ခြင်း"},
+    items:{
+      en:["Online rehearsal with MC & all participants done","Participant roles & cues confirmed","Script / run-of-show shared with all participants","Run-through of ceremony flow done","Vow / speech scripts prepared","Music cue list finalised"],
+      my:["MC နှင့် ပါဝင်သူအားလုံးနှင့် အွန်လိုင်းကျင့်ဆင်ပြီး","ပါဝင်သူ အခန်းကဏ္ဍများနှင့် ဆောင်ရွက်ချိန်များ အတည်ပြုပြီး","ပြောဆိုမှုဇယား / ပွဲစဉ် ပါဝင်သူအားလုံးသို့ မျှဝေပြီး","အခမ်းအနား စီးဆင်းမှုကို ကျင့်ဆင်ပြီး","ကတိကဝတ် / မိန့်ခွန်းများ ပြင်ဆင်ပြီး","တေးဂီတ ဆောင်ရွက်ချိန်စာရင်း အတည်ပြုပြီး"]
+    }
+  },
+
+  // ── PHASE 4 ─────────────────────────────────────────────
+  { id:"final_week", phase:4, icon:"⚙",
+    name:{en:"Final week confirmations", my:"နောက်ဆုံးအပတ် အတည်ပြုချက်များ"},
+    items:{
+      en:["Final plan confirmed","Final headcount confirmed & sent to all vendors","Meeting with MC — final script review","Timeline shared with all vendors","Vendor arrival times confirmed","Participant names confirmed","Music files & videos shared with venue","Final payments settled","MC & full ceremony rehearsal (on-site if possible)","Final dress fitting completed","Bridal nail appointment done","Bridal spa / skin care appointment done"],
+      my:["နောက်ဆုံး စီမံချက် အတည်ပြုပြီး","နောက်ဆုံး ဧည့်သည်အရေအတွက် အတည်ပြုပြီး၊ ဝန်ဆောင်မှုပေးသူအားလုံးသို့ ပေးပို့ပြီး","MC နှင့် တွေ့ဆုံပြီး — နောက်ဆုံး ပြောဆိုမှုဇယား ပြန်လည်သုံးသပ်ပြီး","အချိန်ဇယား ဝန်ဆောင်မှုပေးသူအားလုံးသို့ မျှဝေပြီး","ဝန်ဆောင်မှုပေးသူများ ရောက်ရမည့်အချိန် အတည်ပြုပြီး","ပါဝင်သူ နာမည်များ အတည်ပြုပြီး","တေးဂီတဖိုင်များနှင့် ဗီဒီယိုများ နေရာသို့ မျှဝေပြီး","နောက်ဆုံးငွေပေးချေမှုများ ပြေစည်းပြီး","MC နှင့် အပြည့်အဝ ကျင့်ဆင်ပြီး (နေရာ၌ ဖြစ်နိုင်ပါက)","နောက်ဆုံး ဒရက်စ် ဖြတ်ကြည့်မှု ပြီးဆုံးပြီး","သတို့သမီး လက်သည်းဆိုင် ချိန်းဆိုမှု ပြီးဆုံးပြီး","သတို့သမီး ဆပါ / အရေပြားထိန်းသိမ်းမှု ချိန်းဆိုမှု ပြီးဆုံးပြီး"]
+    }
+  },
+
+  // ── PHASE 5 ─────────────────────────────────────────────
+  { id:"day_before", phase:5, icon:"▣",
+    name:{en:"Items & roles ready (day before)", my:"ပွဲမတိုင်မီ တစ်ရက် — ပစ္စည်းနှင့် တာဝန်များ"},
+    items:{
+      en:["Guest gift bags packed & labelled","Guest / wish book prepared","Name plates checked & sorted by table","Game winner gifts packed","Receptionist confirmed & briefed","Reception table set up (sign book, gifts, seating chart)","MC final briefing done","Ceremony participant roles re-confirmed","Both dresses pressed & ready","Dress 1 hanging & accessible","Dress 2 hanging & accessible (if two dresses)","Suit pressed & ready","Bouquet confirmed with florist","Boutonniere confirmed with florist","Jewellery & accessories laid out & checked","Wedding rings placed in safe location","Veil / hair accessories ready","Bithek setup items confirmed & delivered","Photoboards confirmed & transported","All printed items (programmes, menus, cards) assembled","Music files & videos confirmed on venue system","Payments & tip envelopes prepared for vendors"],
+      my:["ဧည့်သည်လက်ဆောင်အိတ်များ ထုပ်ပြီး တံဆိပ်ကပ်ပြီး","ဧည့်သည် / ဆုတောင်းပုတ်ချစ်စာအုပ် ပြင်ဆင်ပြီး","နာမည်ကတ်များ စစ်ဆေးပြီး စားပွဲ အလိုက် စီစဉ်ပြီး","ဂိမ်းနိုင်သူ ဆုများ ထုပ်ပြီး","ဧည့်ကြိုသူ အတည်ပြုပြီး ညှိနှိုင်းပြီး","ဧည့်ကြိုစားပွဲ ပြင်ဆင်ပြီး (မှတ်တမ်းစာအုပ်၊ လက်ဆောင်၊ ထိုင်ခုံချပ်ဆိုင်ရာ)","MC နောက်ဆုံးညှိနှိုင်းမှု ပြီးဆုံးပြီး","အခမ်းအနားပါဝင်သူ အခန်းကဏ္ဍများ ပြန်လည်အတည်ပြုပြီး","ဒရက်စ်နှစ်ထည်လုံး မွတ်ပြီး အဆင်သင့်","ဒရက်စ် ၁ ချိတ်ဆွဲ၍ ထုတ်ယူနိုင်အောင် ပြင်ဆင်ပြီး","ဒရက်စ် ၂ ချိတ်ဆွဲ၍ ထုတ်ယူနိုင်အောင် ပြင်ဆင်ပြီး (ရှိပါက)","ဆူး မွတ်ပြီး အဆင်သင့်","ပန်းထုပ် ပန်းဆိုင်နှင့် အတည်ပြုပြီး","ညှပ်ပန်း ပန်းဆိုင်နှင့် အတည်ပြုပြီး","လက်ဝတ်ရတနာများ ချထားပြီး စစ်ဆေးပြီး","မင်္ဂလာဆောင်လက်စွပ်များ လုံခြုံသောနေရာ၌ ထားပြီး","မျက်နှာဖုံး / ဆံပင်ပစ္စည်းများ အဆင်သင့်","ဗိဿက် ပြင်ဆင်ပစ္စည်းများ အတည်ပြုပြီး၊ ပို့ဆောင်ပြီး","ဓာတ်ပုံပြားများ အတည်ပြုပြီး သယ်ဆောင်ပြီး","ပုံနှိပ်ပစ္စည်းအားလုံး (အစီအစဉ်၊ မီနူး၊ ကတ်) စုစည်းပြီး","တေးဂီတဖိုင်များနှင့် ဗီဒီယိုများ နေရာ system ၌ အတည်ပြုပြီး","ငွေပေးချေမှုနှင့် ကျေးဇူးတော်ပြစ် စာအိတ်များ ပြင်ဆင်ပြီး"]
+    }
+  },
+  { id:"su_lyar_yit_pat", phase:5, icon:"☸",
+    name:{en:"Su Lyar Yit Pat (Burmese blessing)  ✦ Optional", my:"စုလျာရစ်ပတ် (မြန်မာ ကောင်းချီးမင်္ဂလာ)  ✦ မဖြစ်မနေ မဟုတ်ပါ"},
+    items:{
+      en:["Decision made whether to include Su Lyar Yit Pat at the reception","Officiant / elder confirmed for the ceremony","Su Lyar Yit Pat timing slot added to the run-of-show","Blessing tray prepared (flowers, candles, thanakha, thread)","Thread-tying station or table arranged at venue","Guests briefed on the meaning of the ceremony","Myanmar-language MC or announcer arranged if needed","Post-ceremony photo moment planned"],
+      my:["ဧည့်ခံပွဲတွင် စုလျာရစ်ပတ် ပြုလုပ်မည်မပြုလုပ်မည် ဆုံးဖြတ်ပြီး","အပြုသဘော / သက်ကြီးရွယ်အို ဦးဆောင်သူ အတည်ပြုပြီး","အချိန်ဇယားတွင် စုလျာရစ်ပတ် အချိန်ကွက် ထည့်သွင်းပြီး","ကောင်းချီးမင်္ဂလာ ဆောင်ပြားများ ပြင်ဆင်ပြီး (ပန်းများ၊ မီးပူ၊ သနပ်ခါး၊ ချည်နောင်းကြိုး)","ချည်နောင်းကြိုး ပတ်ရန် ဇောင်းကရပ်နေရာ စီစဉ်ပြီး","ဧည့်သည်များကို စုလျာရစ်ပတ် အဓိပ္ပာယ်ကို ရှင်းပြပြီး","မြန်မာဘာသာဖြင့် MC သို့မဟုတ် ကြေငြာသူ စီစဉ်ပြီး (လိုအပ်ပါက)","အခမ်းအနားပြီးနောက် ဓာတ်ပုံရိုက်ကူးမည့် အချိန် စီစဉ်ပြီး"]
+    }
+  },
+
+  // ── PHASE 6 ─────────────────────────────────────────────
+  { id:"day_arrival", phase:6, icon:"◁",
+    name:{en:"Team arrival (3 hrs before ceremony)", my:"အဖွဲ့ ရောက်ရှိမှု (အခမ်းအနား မတိုင်မီ ၃ နာရီ)"},
+    items:{
+      en:["All team members arrive on-site","Transportation & logistics confirmed","Emergency kit on hand","Vendor setup briefing done"],
+      my:["အဖွဲ့သားအားလုံး နေရာ၌ ရောက်ရှိပြီး","သယ်ယူပို့ဆောင်ရေး အတည်ပြုပြီး","အရေးပေါ်ကိရိယာများ ကိုင်ဆောင်ပြီး","ဝန်ဆောင်မှုပေးသူများ ပြင်ဆင်ရာ ညှိနှိုင်းမှု ပြီးဆုံးပြီး"]
+    }
+  },
+  { id:"day_decor", phase:6, icon:"❀",
+    name:{en:"Decoration setup", my:"အလှဆင်ခြင်း ပြင်ဆင်မှု"},
+    items:{
+      en:["Main space decorated (tables, flowers, lighting)","Photoboards placed","Cake / dessert table set up","Bithek area set up","Reception table in place (sign book, gifts, seating chart)","Receptionist on post","Guest gift bags at reception"],
+      my:["အဓိကနေရာ အလှဆင်ပြီး (စားပွဲ၊ ပန်း၊ အလင်းရောင်)","ဓာတ်ပုံပြားများ ချထားပြီး","ကိတ်မုန့် / မုန့်ချိုစားပွဲ ပြင်ဆင်ပြီး","ဗိဿက်နေရာ ပြင်ဆင်ပြီး","ဧည့်ကြိုစားပွဲ ချထားပြီး (မှတ်တမ်းစာအုပ်၊ လက်ဆောင်၊ ထိုင်ခုံချပ်ဆိုင်ရာ)","ဧည့်ကြိုသူ တာဝန်ကျပြီး","ဧည့်သည်လက်ဆောင်အိတ်များ ဧည့်ကြိုဌာနတွင် ချထားပြီး"]
+    }
+  },
+  { id:"day_couple", phase:6, icon:"◈",
+    name:{en:"Couple & guests", my:"သတို့တွဲနှင့် ဧည့်သည်များ"},
+    items:{
+      en:["Couple hair & makeup done","Bouquet & boutonniere handed to couple","Jewellery & accessories on","Bridal party ready & assembled","Guests welcomed & seated"],
+      my:["သတို့တွဲ ဆံပင်နှင့် မျက်နှာသစ်မှု ပြီးဆုံးပြီး","ပန်းထုပ်နှင့် ညှပ်ပန်း သတို့တွဲကို ပေးအပ်ပြီး","လက်ဝတ်ရတနာနှင့် ပစ္စည်းများ ဝတ်ဆင်ပြီး","မင်္ဂလာဆောင်အဖွဲ့ အဆင်သင့် နှင့် စုရုံးပြီး","ဧည့်သည်များ ကြိုဆိုပြီး၊ ထိုင်ခုံပေးပြီး"]
+    }
+  },
+  { id:"day_programme", phase:6, icon:"▤",
+    name:{en:"Programme & entertainment", my:"အစီအစဉ်နှင့် ဖျော်ဖြေရေး"},
+    items:{
+      en:["Run-of-show timeline distributed to all vendors","Welcome speech & toasts delivered","First dance completed","Slideshow / video played & AV tested","Games / performances run as planned","Cake cutting done","Last dance / send-off moment completed"],
+      my:["ပွဲစဉ်အချိန်ဇယား ဝန်ဆောင်မှုပေးသူအားလုံးသို့ ဖြန့်ဝေပြီး","ကြိုဆိုမိန့်ခွန်းနှင့် ချီးမွမ်းစကားများ ပြောပြီး","ပထမဆုံး အတူကခုန်မှု ပြီးဆုံးပြီး","ဓာတ်ပုံပြကွက် / ဗီဒီယို ဖွင့်ပြပြီး AV စစ်ဆေးပြီး","ဂိမ်းများ / ဖျော်ဖြေမှုများ စီစဉ်ထားသည့်အတိုင်း ပြုလုပ်ပြီး","ကိတ်မုန့်ဖြတ်မှု ပြုလုပ်ပြီး","နောက်ဆုံးကခုန်ချိန် / ပွဲဆုံးနှုတ်ဆက်ချိန် ပြုလုပ်ပြီး"]
+    }
+  },
+  { id:"day_photo", phase:6, icon:"▣",
+    name:{en:"Photography & videography", my:"ဓာတ်ပုံ / ဗီဒီယို"},
+    items:{
+      en:["Shot list shared with photographer before the day","Key moments covered (first look, Su Lyar Yit Pat, cake cut, speeches, first dance)","Photo booth / instant camera set up (if any)","Photographer & videographer wrap confirmed"],
+      my:["ဓာတ်ပုံစာရင်း ပွဲမတိုင်မီ ဓာတ်ပုံဆရာသို့ မျှဝေပြီး","အဓိကအချိန်များ (ပထမတွေ့ဆုံမှု၊ စုလျာရစ်ပတ်၊ မုန့်ဖြတ်ခြင်း) မှတ်တမ်းတင်ပြီး","ဓာတ်ပုံဗုံး / ချက်ချင်းပုံ ကင်မရာ ပြင်ဆင်ပြီး (ရှိပါက)","ဓာတ်ပုံဆရာနှင့် ဗီဒီယိုဆရာ ထွက်ခွာမှု အတည်ပြုပြီး"]
+    }
+  },
+
+  // ── PHASE 7 ─────────────────────────────────────────────
+  { id:"after_wedding", phase:7, icon:"✦",
+    name:{en:"After the wedding", my:"မင်္ဂလာဆောင်ပြီးနောက်"},
+    items:{
+      en:["Photos / videos delivered to couple","Wedding photo album ordered","Thank-you notes / letters sent to vendors","Thank-you notes sent to guests","Post-reception cleanup completed & venue handed back","Late-night accommodation for couple confirmed","Client review / testimonial requested (if applicable)"],
+      my:["ဓာတ်ပုံ / ဗီဒီယိုများ သတို့တွဲကို ပေးအပ်ပြီး","မင်္ဂလာဆောင် ဓာတ်ပုံ အယ်လ်ဘမ် မှာပြီး","ကျေးဇူးတင်ကြောင်း စာများ ဝန်ဆောင်မှုပေးသူများသို့ ပေးပို့ပြီး","ကျေးဇူးတင်ကြောင်း စာများ ဧည့်သည်များသို့ ပေးပို့ပြီး","ပွဲပြီးနောက် သန့်ရှင်းရေး ပြုလုပ်ပြီး၊ နေရာ ပြန်လည်အပ်နှံပြီး","ပွဲပြီးနောက် သတို့တွဲ တည်းခိုရမည့်နေရာ အတည်ပြုပြီး","ဖောက်သည် သုံးသပ်ချက် / သက်သေခံချက် တောင်းခံပြီး (ရှိပါက)"]
+    }
+  },
+];
+
+// ─── STATE ────────────────────────────────────────────────
+let currentLang = 'en';
+let state = {}, collapsed = {}, customItems = {};
+RAW.forEach(s => {
+  state[s.id] = s.items.en.map(() => false);
+  collapsed[s.id] = true;
+  customItems[s.id] = [];
+});
+
+function allItems(sec, lang) { return [...sec.items[lang], ...customItems[sec.id]]; }
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-my').classList.toggle('active', lang==='my');
+  const L = LANG[lang];
+  document.getElementById('title-text').textContent = L.title;
+  document.getElementById('subtitle-text').textContent = L.subtitle;
+  document.querySelectorAll('[data-key]').forEach(el => { const k=el.getAttribute('data-key'); if(L[k]) el.textContent=L[k]; });
+  document.querySelectorAll('[data-key-ph]').forEach(el => { const k=el.getAttribute('data-key-ph'); if(L[k]) el.placeholder=L[k]; });
+  renderSections();
+}
+
+function updateProgress() {
+  let total=0, checked=0;
+  RAW.forEach(s => { state[s.id].forEach(v => { total++; if(v) checked++; }); });
+  const pct = total ? Math.round(checked/total*100) : 0;
+  document.getElementById("progress-fill").style.width = pct+"%";
+  document.getElementById("progress-text").textContent = LANG[currentLang].progress(checked, total);
+}
+
+function renderSections() {
+  const container = document.getElementById("sections");
+  container.innerHTML = "";
+  const L = LANG[currentLang];
+  const pl = PHASE_LABELS[currentLang];
+  let lastPhase = null;
+
+  RAW.forEach(sec => {
+    if (sec.phase !== lastPhase) {
+      lastPhase = sec.phase;
+      const ph = document.createElement("div");
+      ph.className = "phase-header";
+      ph.textContent = pl[sec.phase];
+      container.appendChild(ph);
+    }
+    const items = allItems(sec, currentLang);
+    const checkedCount = state[sec.id].filter(Boolean).length;
+    const div = document.createElement("div"); div.className = "section";
+    const header = document.createElement("div"); header.className = "section-header";
+    header.innerHTML = `<span class="section-icon">${sec.icon}</span><span class="section-name">${sec.name[currentLang]}</span><span class="section-count" id="count-${sec.id}">${checkedCount}/${items.length}</span><span class="section-toggle">${collapsed[sec.id]?"▸":"▾"}</span>`;
+    header.onclick = () => { collapsed[sec.id] = !collapsed[sec.id]; renderSections(); };
+    const body = document.createElement("div");
+    body.className = "section-body" + (collapsed[sec.id] ? " collapsed" : "");
+    items.forEach((label, i) => {
+      const row = document.createElement("div"); row.className = "item-row";
+      const cbId = `cb-${sec.id}-${i}`;
+      row.innerHTML = `<input type="checkbox" id="${cbId}" ${state[sec.id][i]?"checked":""} /><label class="item-label ${state[sec.id][i]?"checked":""}" for="${cbId}">${label}</label>`;
+      row.querySelector("input").onchange = function() {
+        state[sec.id][i] = this.checked;
+        row.querySelector(".item-label").classList.toggle("checked", this.checked);
+        document.getElementById("count-"+sec.id).textContent = state[sec.id].filter(Boolean).length+"/"+allItems(sec,currentLang).length;
+        updateProgress();
+      };
+      body.appendChild(row);
+    });
+    const addRow = document.createElement("div"); addRow.className = "add-item";
+    addRow.innerHTML = `<input class="add-input" placeholder="${L.add_placeholder}" /><button class="add-btn">${L.add_btn}</button>`;
+    const inp = addRow.querySelector("input"), btn = addRow.querySelector("button");
+    const doAdd = () => { const v=inp.value.trim(); if(!v) return; customItems[sec.id].push(v); state[sec.id].push(false); inp.value=""; renderSections(); updateProgress(); };
+    btn.onclick = doAdd; inp.onkeydown = e => { if(e.key==="Enter") doAdd(); };
+    body.appendChild(addRow);
+    div.appendChild(header); div.appendChild(body); container.appendChild(div);
+  });
+  updateProgress();
+}
+
+function expandAll() { RAW.forEach(s => collapsed[s.id]=false); renderSections(); }
+function collapseAll() { RAW.forEach(s => collapsed[s.id]=true); renderSections(); }
+function uncheckAll() { RAW.forEach(s => { state[s.id]=state[s.id].map(()=>false); }); renderSections(); }
+
+renderSections();
+</script>
+</body>
+</html>
