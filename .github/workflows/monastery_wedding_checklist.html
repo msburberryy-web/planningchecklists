@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monastery Wedding Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f5f2; color: #1a1a1a; padding: 2rem 1rem; }
+  .app { max-width: 680px; margin: 0 auto; }
+  .top-bar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; gap: 12px; }
+  .top-bar-text h1 { font-size: 19px; font-weight: 600; margin-bottom: 3px; }
+  .top-bar-text .subtitle { font-size: 12px; color: #999; }
+  .lang-toggle { display: flex; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+  .lang-btn { font-size: 12px; padding: 6px 13px; background: #fff; color: #888; cursor: pointer; border: none; outline: none; transition: background 0.15s, color 0.15s; }
+  .lang-btn.active { background: #B07D3A; color: #fff; }
+  .event-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.5rem; }
+  .meta-field { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
+  .meta-input { font-size: 13px; padding: 7px 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a1a; outline: none; }
+  .meta-input:focus { border-color: #B07D3A; }
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-bar { height: 4px; background: #e5e5e5; border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
+  .progress-fill { height: 100%; border-radius: 99px; background: #B07D3A; transition: width 0.3s ease; }
+  .progress-text { font-size: 12px; color: #999; }
+  .section { margin-bottom: 8px; border: 1px solid #e8e5e0; border-radius: 12px; overflow: hidden; background: #fff; }
+  .section-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #faf8f5; cursor: pointer; user-select: none; }
+  .section-icon { font-size: 14px; width: 20px; text-align: center; }
+  .section-name { font-size: 13px; font-weight: 600; color: #1a1a1a; flex: 1; }
+  .section-count { font-size: 12px; color: #bbb; }
+  .section-toggle { font-size: 10px; color: #ccc; }
+  .section-body.collapsed { display: none; }
+  .item-row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 14px; border-bottom: 1px solid #f2ede8; }
+  .item-row:last-of-type { border-bottom: none; }
+  .item-row input[type=checkbox] { width: 14px; height: 14px; accent-color: #B07D3A; cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+  .item-label { font-size: 13px; color: #1a1a1a; flex: 1; line-height: 1.6; cursor: pointer; }
+  .item-label.checked { color: #c0bbb4; text-decoration: line-through; }
+  .add-item { display: flex; gap: 6px; padding: 7px 14px; border-top: 1px solid #f0ede8; }
+  .add-input { flex: 1; font-size: 12px; padding: 5px 9px; border: 1px solid #ddd; border-radius: 7px; background: #fafafa; color: #1a1a1a; outline: none; }
+  .add-input:focus { border-color: #B07D3A; background: #fff; }
+  .add-btn { font-size: 12px; padding: 5px 10px; border: 1px solid #ddd; border-radius: 7px; background: #fff; color: #666; cursor: pointer; }
+  .add-btn:hover { background: #f0f0f0; }
+  .footer-actions { display: flex; gap: 8px; margin-top: 1.25rem; flex-wrap: wrap; }
+  .footer-btn { font-size: 12px; padding: 7px 13px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #555; cursor: pointer; }
+  .footer-btn:hover { background: #f5f3f0; }
+  .footer-btn.primary { background: #B07D3A; color: #fff; border-color: #B07D3A; }
+  .footer-btn.primary:hover { background: #8C6230; }
+  @media print {
+    body { background: #fff; padding: 1rem; }
+    .footer-actions, .add-item, .lang-toggle { display: none; }
+    .section-body.collapsed { display: block !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="top-bar">
+    <div class="top-bar-text">
+      <h1 id="title-text">Monastery Wedding Checklist</h1>
+      <p class="subtitle" id="subtitle-text">Myanmar Buddhist tradition — reusable master template</p>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-my" onclick="setLang('my')">မြန်မာ</button>
+    </div>
+  </div>
+
+  <div class="event-meta">
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_couple">Couple</span>
+      <input class="meta-input" placeholder="e.g. Ma Aye & Ko Kyaw" />
+    </div>
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_date">Wedding Date</span>
+      <input class="meta-input" type="date" />
+    </div>
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_monastery">Monastery</span>
+      <input class="meta-input" data-key-ph="ph_monastery" placeholder="Monastery name" />
+    </div>
+    <div class="meta-field">
+      <span class="meta-label" data-key="meta_soon">Alms time (Mingalar Soon)</span>
+      <input class="meta-input" data-key-ph="ph_soon" placeholder="e.g. 10:00 AM" />
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-text" id="progress-text"></div>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="footer-actions">
+    <button class="footer-btn" onclick="expandAll()" data-key="btn_expand">Expand all</button>
+    <button class="footer-btn" onclick="collapseAll()" data-key="btn_collapse">Collapse all</button>
+    <button class="footer-btn" onclick="uncheckAll()" data-key="btn_reset">Reset all</button>
+    <button class="footer-btn primary" onclick="window.print()" data-key="btn_print">Print / Save PDF</button>
+  </div>
+</div>
+
+<script>
+const LANG = {
+  en: {
+    title: "Monastery Wedding Checklist",
+    subtitle: "Myanmar Buddhist tradition — reusable master template",
+    meta_couple: "Couple",
+    meta_date: "Wedding Date",
+    meta_monastery: "Monastery",
+    meta_soon: "Alms time (Mingalar Soon)",
+    ph_monastery: "Monastery name",
+    ph_soon: "e.g. 10:00 AM",
+    progress: (c, t) => `${c} of ${t} items checked`,
+    add_placeholder: "Add custom item...",
+    add_btn: "+ Add",
+    btn_expand: "Expand all",
+    btn_collapse: "Collapse all",
+    btn_reset: "Reset all",
+    btn_print: "Print / Save PDF",
+  },
+  my: {
+    title: "ကျောင်းတိုက် မင်္ဂလာဆောင် စာရင်း",
+    subtitle: "မြန်မာ ဗုဒ္ဓဘာသာ ထုံးတမ်းစဉ်လာ — ကြိမ်ဖန်များစွာ အသုံးပြုနိုင်သော ပုံစံ",
+    meta_couple: "သတို့သား / သတို့သမီး",
+    meta_date: "မင်္ဂလာဆောင် နေ့",
+    meta_monastery: "ကျောင်းတိုက်",
+    meta_soon: "ဆွမ်းကပ်ချိန် (မင်္ဂလာဆွမ်း)",
+    ph_monastery: "ကျောင်းတိုက်အမည်",
+    ph_soon: "ဥပမာ မနက် ၁၀ နာရီ",
+    progress: (c, t) => `စုစုပေါင်း ${t} ခုအနက် ${c} ခု ပြီးစီးသည်`,
+    add_placeholder: "အကြောင်းအရာ ထပ်ထည့်ရန်...",
+    add_btn: "+ ထည့်",
+    btn_expand: "အားလုံး ဖွင့်",
+    btn_collapse: "အားလုံး ပိတ်",
+    btn_reset: "အားလုံး ပြန်သိမ်း",
+    btn_print: "ပရင့်ထုတ် / PDF သိမ်း",
+  }
+};
+
+const SECTIONS = {
+  en: [
+    {
+      id: "monk_offering", icon: "☸", name: "Monk offering (Mingalar Soon)",
+      items: [
+        "Number of monks confirmed with monastery",
+        "Soon menu planned with caterer",
+        "Offering trays, bowls & covers prepared",
+        "Monk-serving team assigned",
+        "Sermon & blessing timing confirmed with head monk"
+      ]
+    },
+    {
+      id: "attire", icon: "◈", name: "Couple's attire",
+      items: [
+        "Bride's outfit & jewelry ready",
+        "Groom's outfit ready",
+        "Outfits steamed / pressed the day before"
+      ]
+    },
+    {
+      id: "hair_makeup", icon: "◎", name: "Hair & makeup",
+      items: [
+        "Hair artist booked & call time confirmed",
+        "Makeup artist booked & call time confirmed",
+        "Trial session completed",
+        "Touch-up kit packed (lipstick, powder, pins)"
+      ]
+    },
+    {
+      id: "food", icon: "▭", name: "Food & catering",
+      items: [
+        "Caterer confirmed (rice, curries, side dishes)",
+        "Guest headcount submitted to caterer",
+        "Serving tables & serving team arranged",
+        "Water & drinks arranged",
+        "Plates, cups & cutlery confirmed",
+        "Catering setup time agreed with monastery",
+        "Garbage bags & post-meal cleanup assigned"
+      ]
+    },
+    {
+      id: "guests", icon: "▤", name: "Guests & gifts",
+      items: [
+        "Guest list finalised",
+        "Invitations sent (monastery, date, alms time)",
+        "Guest sign book & pens set up",
+        "Gift / envelope collection table arranged"
+      ]
+    },
+    {
+      id: "helpers", icon: "◁", name: "Helpers on the day",
+      items: [
+        "Greeter assigned at monastery entrance",
+        "Gift & envelope collection person assigned",
+        "Food serving team briefed",
+        "Monk-offering serving team briefed"
+      ]
+    },
+    {
+      id: "photo_video", icon: "▣", name: "Photo & video",
+      items: [
+        "Photographer confirmed & call time set",
+        "Videographer confirmed & call time set",
+        "Key shots shared (Soon offering, garland exchange, family portraits)"
+      ]
+    },
+    {
+      id: "logistics", icon: "⚙", name: "Day-of logistics",
+      items: [
+        "Transport for couple arranged",
+        "Arrival time at monastery confirmed",
+        "Monastery rules reviewed (decor, noise, access)",
+        "Monastery premises left clean after event"
+      ]
+    }
+  ],
+  my: [
+    {
+      id: "monk_offering", icon: "☸", name: "ဆွမ်းကပ်လှူဒါန်း (မင်္ဂလာဆွမ်း)",
+      items: [
+        "ကျောင်းတိုက်နှင့် သံဃာတော် အရေအတွက် အတည်ပြုပြီး",
+        "ဆွမ်းဖိုးစာရင်း ကြိုတင်စီစဉ်ပြီး",
+        "ဆွမ်းကပ်ဆောင်ပြားများ၊ ဆွမ်းခွက်များ ပြင်ဆင်ပြီး",
+        "ဆွမ်းကပ်သူ အဖွဲ့ သတ်မှတ်ပြီး",
+        "တရားဟောချိန်နှင့် ကျောင်းထိုင်ဆရာတော်နှင့် ချိန်းဆိုပြီး"
+      ]
+    },
+    {
+      id: "attire", icon: "◈", name: "သတို့သား / သတို့သမီး အဝတ်အစား",
+      items: [
+        "သတို့သမီး ဝတ်စုံနှင့် လက်ဝတ်ရတနာ အဆင်သင့်",
+        "သတို့သား ဝတ်စုံ အဆင်သင့်",
+        "မနက်ဖြန် ဝတ်ဆင်ရန် ရှိဆွဲ / မွတ်ပြီး"
+      ]
+    },
+    {
+      id: "hair_makeup", icon: "◎", name: "ဆံပင် / မျက်နှာသစ်",
+      items: [
+        "ဆံပင်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး",
+        "မျက်နှာသစ်ဆရာ ချိန်းဆိုပြီး၊ ရောက်ရမည့်အချိန် အတည်ပြုပြီး",
+        "စမ်းသပ်ခြင်း ပြီးဆုံးပြီး",
+        "ဆေးကိရိယာများ ထုပ်ပြီး (နှုတ်ခမ်းနီ၊ ပွ်ဒါ၊ ဆံချောင်း)"
+      ]
+    },
+    {
+      id: "food", icon: "▭", name: "ဧည့်ခံ အစားအသောက်",
+      items: [
+        "ကြက်သားကောင်တာ အတည်ပြုပြီး (ထမင်း၊ ဟင်းများ)",
+        "ဧည့်သည်အရေအတွက် ကြက်သားကောင်တာသို့ ပေးပို့ပြီး",
+        "ဒယ်ကားများနှင့် ဝန်ဆောင်မှုအဖွဲ့ စီစဉ်ပြီး",
+        "သောက်ရေနှင့် အဖျော်ယမကာ စီစဉ်ပြီး",
+        "ပန်းကန်၊ ခွက်၊ ဇွန်းများ အတည်ပြုပြီး",
+        "ကျောင်းတိုက်နှင့် ချက်ပြုတ်စတင်ချိန် သဘောတူပြီး",
+        "အမှိုက်အိတ်နှင့် ဧည့်ခံပြီးနောက် သန့်ရှင်းရေး တာဝန်ခွဲပြီး"
+      ]
+    },
+    {
+      id: "guests", icon: "▤", name: "ဧည့်သည်များနှင့် လက်ဆောင်",
+      items: [
+        "ဧည့်သည်စာရင်း အတည်ပြုပြီး",
+        "ဖိတ်စာများ ပေးပို့ပြီး (ကျောင်းတိုက်၊ ရက်၊ ဆွမ်းကပ်ချိန်)",
+        "ဧည့်သည် လက်မှတ်ထိုးစာအုပ်နှင့် ဘောပင် ပြင်ဆင်ပြီး",
+        "လက်ဆောင် / စာအိတ် လက်ခံစားပွဲ စီစဉ်ပြီး"
+      ]
+    },
+    {
+      id: "helpers", icon: "◁", name: "နေ့တွင် ကူညီသူများ",
+      items: [
+        "ကျောင်းတိုက်ဝင်ပေါက်တွင် ကြိုဆိုသူ သတ်မှတ်ပြီး",
+        "လက်ဆောင် / စာအိတ် လက်ခံသူ သတ်မှတ်ပြီး",
+        "ဧည့်ခံ ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး",
+        "ဆွမ်းကပ်ဝန်ဆောင်မှုအဖွဲ့ ညှိနှိုင်းပြီး"
+      ]
+    },
+    {
+      id: "photo_video", icon: "▣", name: "ဓာတ်ပုံ / ဗီဒီယို",
+      items: [
+        "ဓာတ်ပုံဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",
+        "ဗီဒီယိုဆရာ အတည်ပြုပြီး၊ ရောက်ရမည့်အချိန် သတ်မှတ်ပြီး",
+        "မှတ်တမ်းတင်ရမည့် အဓိကအခိုက်အတန့်များ မျှဝေပြီး"
+      ]
+    },
+    {
+      id: "logistics", icon: "⚙", name: "နေ့ဆိုင်ရာ စီစဉ်မှုများ",
+      items: [
+        "သတို့တွဲ သယ်ယူပို့ဆောင်ရေး စီစဉ်ပြီး",
+        "ကျောင်းတိုက် ရောက်ရမည့်အချိန် အတည်ပြုပြီး",
+        "ကျောင်းတိုက် စည်းကမ်းများ သိရှိပြီး (အလှဆင်ခြင်း၊ ဆူညံမှု)",
+        "အခမ်းအနားပြီးနောက် ကျောင်းတိုက် သန့်ရှင်းရေး ပြုလုပ်ပြီး"
+      ]
+    }
+  ]
+};
+
+let currentLang = 'en';
+let state = {};
+let collapsed = {};
+let customItems = {};
+
+SECTIONS.en.forEach(s => {
+  state[s.id] = s.items.map(() => false);
+  collapsed[s.id] = false;
+  customItems[s.id] = [];
+});
+
+function allItems(sec) {
+  return [...sec.items, ...customItems[sec.id]];
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-my').classList.toggle('active', lang === 'my');
+  const L = LANG[lang];
+  document.getElementById('title-text').textContent = L.title;
+  document.getElementById('subtitle-text').textContent = L.subtitle;
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.getAttribute('data-key');
+    if (L[k]) el.textContent = L[k];
+  });
+  document.querySelectorAll('[data-key-ph]').forEach(el => {
+    const k = el.getAttribute('data-key-ph');
+    if (L[k]) el.placeholder = L[k];
+  });
+  renderSections();
+}
+
+function updateProgress() {
+  let total = 0, checked = 0;
+  SECTIONS.en.forEach(s => {
+    state[s.id].forEach(v => { total++; if (v) checked++; });
+  });
+  const pct = total ? Math.round(checked / total * 100) : 0;
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-text").textContent = LANG[currentLang].progress(checked, total);
+}
+
+function renderSections() {
+  const container = document.getElementById("sections");
+  container.innerHTML = "";
+  const L = LANG[currentLang];
+  const sections = SECTIONS[currentLang];
+
+  sections.forEach(sec => {
+    const items = allItems(sec);
+    const checkedCount = state[sec.id].filter(Boolean).length;
+    const div = document.createElement("div");
+    div.className = "section";
+    const header = document.createElement("div");
+    header.className = "section-header";
+    header.innerHTML = `
+      <span class="section-icon">${sec.icon}</span>
+      <span class="section-name">${sec.name}</span>
+      <span class="section-count" id="count-${sec.id}">${checkedCount}/${items.length}</span>
+      <span class="section-toggle">${collapsed[sec.id] ? "▸" : "▾"}</span>
+    `;
+    header.onclick = () => { collapsed[sec.id] = !collapsed[sec.id]; renderSections(); };
+    const body = document.createElement("div");
+    body.className = "section-body" + (collapsed[sec.id] ? " collapsed" : "");
+    items.forEach((label, i) => {
+      const row = document.createElement("div");
+      row.className = "item-row";
+      const cbId = `cb-${sec.id}-${i}`;
+      row.innerHTML = `<input type="checkbox" id="${cbId}" ${state[sec.id][i] ? "checked" : ""} />
+        <label class="item-label ${state[sec.id][i] ? "checked" : ""}" for="${cbId}">${label}</label>`;
+      row.querySelector("input").onchange = function() {
+        state[sec.id][i] = this.checked;
+        row.querySelector(".item-label").classList.toggle("checked", this.checked);
+        const c = state[sec.id].filter(Boolean).length;
+        document.getElementById("count-" + sec.id).textContent = c + "/" + items.length;
+        updateProgress();
+      };
+      body.appendChild(row);
+    });
+    const addRow = document.createElement("div");
+    addRow.className = "add-item";
+    addRow.innerHTML = `<input class="add-input" placeholder="${L.add_placeholder}" /><button class="add-btn">${L.add_btn}</button>`;
+    const inp = addRow.querySelector("input");
+    const btn = addRow.querySelector("button");
+    const doAdd = () => {
+      const v = inp.value.trim();
+      if (!v) return;
+      customItems[sec.id].push(v);
+      state[sec.id].push(false);
+      inp.value = "";
+      renderSections();
+      updateProgress();
+    };
+    btn.onclick = doAdd;
+    inp.onkeydown = e => { if (e.key === "Enter") doAdd(); };
+    body.appendChild(addRow);
+    div.appendChild(header);
+    div.appendChild(body);
+    container.appendChild(div);
+  });
+  updateProgress();
+}
+
+function expandAll() { SECTIONS.en.forEach(s => collapsed[s.id] = false); renderSections(); }
+function collapseAll() { SECTIONS.en.forEach(s => collapsed[s.id] = true); renderSections(); }
+function uncheckAll() {
+  SECTIONS.en.forEach(s => { state[s.id] = state[s.id].map(() => false); });
+  renderSections();
+}
+
+renderSections();
+</script>
+</body>
+</html>
